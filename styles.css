@@ -373,3 +373,35 @@ mark.hl { background: var(--warn-soft); color: inherit; outline: 2px solid var(-
   .q-card { padding: 16px; }
   .result-actions { margin-left: 0; }
 }
+
+/* ---------- Exámenes por unidad ---------- */
+.unit-exams { display: flex; flex-direction: column; gap: 12px; }
+.unit-exam-row {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px;
+  padding: 16px 20px; background: var(--surface); border: 1px solid var(--border);
+  border-left: 4px solid var(--uc); border-radius: var(--radius); box-shadow: var(--shadow);
+}
+.unit-exam-title { display: flex; flex-direction: column; min-width: 200px; flex: 1; }
+.unit-exam-title .unit-num { color: var(--uc); }
+.unit-exam-title strong { font-size: 16px; line-height: 1.3; }
+.ulevels { display: flex; flex-wrap: wrap; gap: 8px; }
+.ulevel {
+  display: flex; flex-direction: column; min-width: 128px; padding: 8px 12px;
+  border: 1px solid var(--border); border-top: 3px solid var(--lv); border-radius: 8px;
+  background: var(--surface); color: var(--text); text-decoration: none;
+}
+.ulevel:hover { border-color: var(--lv); }
+.ulevel-name { font-weight: 700; color: var(--lv); font-size: 14.5px; }
+.ulevel-score { font-size: 12.5px; color: var(--muted); }
+.ulevel-score .ok { color: var(--ok); }
+.ulevel-score .bad { color: var(--u3); }
+.unit-practice {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px;
+  padding: 12px 16px; margin-bottom: 16px; border-radius: var(--radius);
+  background: var(--surface-2);
+}
+.unit-practice-label { font-weight: 600; font-size: 14.5px; }
+@media (max-width: 860px) {
+  .ulevel { min-width: 0; flex: 1; }
+  .ulevels { width: 100%; }
+}

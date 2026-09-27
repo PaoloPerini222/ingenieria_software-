@@ -37,7 +37,7 @@
 
   <!-- Contenido generado desde el libro de estudio (Markdown). Cada "## " es un tema. -->
 <script type="text/markdown" data-unit="1" data-label="Unidad I" data-short="Introducción" data-title="Introducción a la ingeniería de software">
-## 1.1 — QUÉ ES SOFTWARE
+## 1.1 — SOFTWARE Y TIPOS DE SOFTWARE
 
 ### Definición Integral
 El software NO es solo código. Es el **conjunto completo** de piezas que hacen que un sistema exista y sea utilizable:
@@ -87,7 +87,9 @@ La distinción fundamental está en **QUIÉN CONTROLA LOS REQUISITOS:**
 
 **Matiz importante:** La frontera se volvió muy difusa. Sistemas como SAP o Salesforce son técnicamente genéricos (se venden a cualquiera) pero admiten tal grado de configuración, parametrización y desarrollo de extensiones, que la implementación en un cliente concreto se parece a un proyecto a medida. Esto explica por qué el problema de gestionar requisitos no desaparece nunca.
 
-## 1.2 — LAS TRES CARACTERÍSTICAS QUE HACEN DEL SOFTWARE ALGO DISTINTO
+## 1.2 — CARACTERÍSTICAS DEL SOFTWARE: LO QUE LO HACE DISTINTO
+
+**Fuente:** Pressman, Capítulo 1. En la 5ª edición las tres características se enuncian así: "El software se desarrolla, no se fabrica en un sentido clásico", "El software no se estropea, pero se deteriora" y "Aunque la industria tiende a ensamblar componentes, la mayoría del software se construye a medida".
 
 Estas tres características son el corazón conceptual de la primera unidad. Justifican por qué hace falta una ingeniería específica para el software y no alcanza con aplicar las ideas de la ingeniería industrial clásica.
 
@@ -208,7 +210,9 @@ Tasa de fallos
 
 Un equipo que reutiliza mal termina con más problemas que uno que escribió su propio código. Por eso la reutilización efectiva es una **DECISIÓN DE ARQUITECTURA**, no una decisión táctica de un programador. Conecta directamente con lo que el Proceso Unificado dice sobre el rol del arquitecto.
 
-## 1.3 — LOS ATRIBUTOS ESENCIALES DE CALIDAD
+## 1.3 — ATRIBUTOS DE UN BUEN SOFTWARE
+
+**Fuente:** Sommerville, Capítulo 1 (Figura 1.5 "Atributos esenciales de un buen software": mantenibilidad, confiabilidad, eficiencia y usabilidad). En los puntos clave del capítulo, Sommerville llama al cuarto atributo **aceptabilidad**: el software debe ser aceptable (comprensible, usable y compatible) para los usuarios para los que se diseñó.
 
 ### Distinción Fundamental
 
@@ -265,7 +269,7 @@ Un paraguas que incluye:
 
 **Poder decir esto, con un ejemplo concreto, demuestra criterio ingenieril y no solo memoria.**
 
-## 1.4 — CATEGORÍAS DE SOFTWARE
+## 1.4 — CATEGORÍAS DEL SOFTWARE
 
 La lista de categorías es fácil de memorizar y por eso poco valiosa por sí sola. Lo valioso es tener un **EJEMPLO PROPIO de cada una** y entender **POR QUÉ las fronteras importan**.
 
@@ -317,6 +321,12 @@ La lista de categorías es fácil de memorizar y por eso poco valiosa por sí so
 
 **Reconocer eso demuestra comprensión real de las categorías, no solo memorización.**
 
+### Nota sobre las Ediciones de Pressman
+
+La planificación de la cátedra pide la **7ª edición** de Pressman, que presenta las **7 categorías** de arriba.
+
+La **5ª edición** (la que está en PDF) presenta **8 categorías**: software de sistemas, software de tiempo real, software de gestión, software de ingeniería y científico, software empotrado, software de computadoras personales, software basado en Web y software de inteligencia artificial.
+
 ## 1.5 — EL SOFTWARE HEREDADO (LEGACY)
 
 El software heredado merece atención aparte porque es el **problema cotidiano de casi cualquier organización real** y porque encierra una **PARADOJA que da para una excelente respuesta de examen**.
@@ -361,99 +371,7 @@ LAS DECISIONES sobre estos sistemas —**reemplazar, reescribir, envolver con un
 - **Envolver:** Si funciona bien pero hay que adaptarlo a interfaces nuevas (web, APIs modernas)
 - **Mantener y convivir:** Si sigue cumpliendo su función y el costo de cambio es prohibitivo
 
-## 1.5B — BPMN (NOTACIÓN PARA MODELADO DE PROCESOS DE NEGOCIO)
-
-**Introducción a BPMN:** Zanel pide "Introducción a BPMN" en Unidad I.
-
-### Qué es BPMN
-
-- **Estándar OMG** (Object Management Group)
-- **Notación gráfica** para modelar procesos de negocio
-- Puente entre **analistas de negocio** (no técnicos) y **arquitectos de software** (técnicos)
-
-### Elementos Básicos
-
-#### EVENTO (Circulito)
-
-- Algo que OCURRE y dispara o completa el proceso
-- **Inicio:** Proceso empieza (círculo simple)
-- **Intermedio:** Algo pasa EN MEDIO (círculo doble)
-- **Fin:** Proceso termina (círculo lleno)
-
-```
-o  → Inicio    ◎  → Intermedio    ●  → Fin
-```
-
-#### ACTIVIDAD/TAREA (Rectángulo)
-
-- Trabajo que se realiza
-- **Escribir informe**
-- **Aprobar solicitud**
-
-```
-┌─────────────────┐
-│  Escribir       │
-│  informe        │
-└─────────────────┘
-```
-
-#### PUERTA (Rombo)
-
-Decisión: caminos alternativos
-
-```
-    ┌──────────────────┐
-    │ ¿Aprobado?       │
-    └────────┬─────────┘
-        ┌────┴────┐
-       Sí         No
-        │          │
-```
-
-#### FLUJO (Flecha)
-
-Conecta elementos, muestra orden
-
----
-
-### Ejemplo Completo: Proceso de Compra
-
-```
-    o                    ┌──────────────────┐
-    │                    │ Seleccionar      │
- Inicio            ├─→   │ artículos        │
-    │              │     └──────────────────┘
-    │              │              │
-    │      ┌───────┴──────────────┴────┐
-    └──────→ ¿Hay stock?               │
-           └──────┬──────────────┬─────┘
-                 Sí             No
-                  │              │
-          ┌───────▼──────┐   ┌───▼──────────┐
-          │ Procesar     │   │ Retrasar y   │
-          │ pago         │   │ avisar       │
-          └───────┬──────┘   └───┬──────────┘
-                  │              │
-          ┌───────┴──────────────┴────┐
-          │                           │
-          ├─ ¿Pago aprobado?         │
-          └───┬────────────┬─────────┘
-             Sí            No
-              │             │
-              ▼             ▼
-          ┌───────────┐  ┌──────────┐
-          │ Cancelar  │  │ Rechazar │
-          │ pedido    │  │ pedido   │
-          └───┬───────┘  └─────┬────┘
-              │                │
-          ┌───┴────────────────┘
-          │
-          ▼
-          ●
-         Fin
-```
-
-## 1.6 — LA CRISIS DEL SOFTWARE
+## 1.6 — PROBLEMÁTICAS EN EL DESARROLLO: LA CRISIS DEL SOFTWARE
 
 ### El Problema (Años 60s-70s)
 
@@ -481,37 +399,13 @@ Este conjunto de síntomas se conoció como **LA CRISIS DEL SOFTWARE**.
 
 **Aplicar al desarrollo del software el tipo de rigor que otras ingenierías ya aplicaban a sus productos.**
 
-## 1.7 — DEFINICIÓN IEEE DE INGENIERÍA DE SOFTWARE
+### "Aflicción Crónica" (Pressman)
 
-### La Definición
+Pressman discute si "crisis" sigue siendo el término apropiado, dados los grandes éxitos de la industria. Propone hablar de una **aflicción crónica**: "algo que causa pena o desastre" y que es "muy duradero o que reaparece con frecuencia, continuando indefinidamente". Es más preciso que "crisis" para describir los problemas que la industria viene aguantando.
 
-"La aplicación de un enfoque **SISTEMÁTICO, DISCIPLINADO y CUANTIFICABLE** al desarrollo, operación y **MANTENIMIENTO** del software"
+## 1.7 — LOS MITOS DEL SOFTWARE
 
-### Las Tres Palabras Clave
-
-#### 1. SISTEMÁTICO
-- Hay un método, no improvisación
-- Cada paso sigue de forma lógica al anterior
-- Se puede documentar, enseñar y replicar
-
-#### 2. DISCIPLINADO
-- Ese método se sigue aunque haya presión de tiempo
-- **CRÍTICO:** Este es el punto que más se viola en proyectos reales
-- Es justamente cuando la tentación de saltarlo es más fuerte (una entrega urgente)
-- Una ingeniería "de verdad" se mantiene disciplinada bajo presión
-
-#### 3. CUANTIFICABLE (la palabra que más se pasa por alto)
-- Se puede medir
-- Si no podés medir cuánto tardás, cuántos defectos tenés y cuánto cuesta un cambio, **no estás haciendo ingeniería, estás haciendo artesanía prolija**
-- La medición permite mejorar: no se puede mejorar lo que no se mide
-
-### Nota sobre Operación y Mantenimiento
-
-La definición menciona explícitamente la **OPERACIÓN Y EL MANTENIMIENTO**, no solo el desarrollo.
-
-**El compromiso de la disciplina abarca TODO el ciclo de vida, no solo la fase de construcción.**
-
-## 1.8 — LOS MITOS DEL SOFTWARE
+**Fuente:** Pressman, Capítulo 1: "Muchas de las causas de la crisis del software se pueden encontrar en una **mitología** que surge durante los primeros años del desarrollo del software". Por eso los mitos se estudian junto con las problemáticas del desarrollo.
 
 Los mitos son un tema clásico de examen, generalmente en forma de "clasifique el siguiente enunciado" o "diga si es verdadero o falso y justifique".
 
@@ -593,7 +487,37 @@ Nacen de **SUBESTIMAR todo lo que viene después de que el código anda**.
 - Falta de documentación = imposibilidad de mantener
 - Falta de casos de prueba = no hay cobertura
 
-## 1.9 — LOS TRES PILARES DE LA DISCIPLINA: PROCESO, MÉTODOS Y HERRAMIENTAS
+## 1.8 — INGENIERÍA DE SOFTWARE: DEFINICIÓN IEEE
+
+### La Definición
+
+"La aplicación de un enfoque **SISTEMÁTICO, DISCIPLINADO y CUANTIFICABLE** al desarrollo, operación y **MANTENIMIENTO** del software"
+
+### Las Tres Palabras Clave
+
+#### 1. SISTEMÁTICO
+- Hay un método, no improvisación
+- Cada paso sigue de forma lógica al anterior
+- Se puede documentar, enseñar y replicar
+
+#### 2. DISCIPLINADO
+- Ese método se sigue aunque haya presión de tiempo
+- **CRÍTICO:** Este es el punto que más se viola en proyectos reales
+- Es justamente cuando la tentación de saltarlo es más fuerte (una entrega urgente)
+- Una ingeniería "de verdad" se mantiene disciplinada bajo presión
+
+#### 3. CUANTIFICABLE (la palabra que más se pasa por alto)
+- Se puede medir
+- Si no podés medir cuánto tardás, cuántos defectos tenés y cuánto cuesta un cambio, **no estás haciendo ingeniería, estás haciendo artesanía prolija**
+- La medición permite mejorar: no se puede mejorar lo que no se mide
+
+### Nota sobre Operación y Mantenimiento
+
+La definición menciona explícitamente la **OPERACIÓN Y EL MANTENIMIENTO**, no solo el desarrollo.
+
+**El compromiso de la disciplina abarca TODO el ciclo de vida, no solo la fase de construcción.**
+
+## 1.9 — CONCEPTOS: PROCESO, MÉTODOS Y HERRAMIENTAS
 
 Tanto Pressman como la cátedra coinciden en que la ingeniería de software está formada por **TRES ELEMENTOS que se apoyan unos en otros:**
 
@@ -637,7 +561,9 @@ Toda la estructura se apoya en un **COMPROMISO ORGANIZACIONAL CON LA CALIDAD**.
 
 Esta idea conecta con la **MEJORA CONTINUA** que se desarrolla después: filosofías como la Administración Total de la Calidad o Six Sigma son justamente las que alimentan ese compromiso de base.
 
-## 1.10 — LOS RETOS FUNDAMENTALES DEL SIGLO XXI
+**Fuente:** Pressman, Capítulo 2: "La ingeniería del software es una **tecnología multicapa**… cualquier enfoque de ingeniería debe apoyarse sobre un **compromiso de organización de calidad**". Las capas, de abajo hacia arriba: enfoque de calidad, proceso, métodos y herramientas.
+
+## 1.10 — RETOS A ENFRENTAR
 
 Sommerville identifica **TRES GRANDES RETOS** que la disciplina enfrenta hoy:
 
@@ -693,77 +619,57 @@ Son tres proyecciones del mismo problema: **gestionar la complejidad del softwar
 - Existe la percepción de que es fácil de modificar, lo que genera pedidos de cambio continuos
 - Su producción es humano-intensiva, así que el mayor costo está ligado al esfuerzo de ingeniería (no se puede reducir por pura eficiencia técnica)
 
-## 1.11 — LAS OCHO REGLAS DE ORO DE SCHNEIDERMAN (Pressman Cap 11)
+## 1.11 — INVOLUCRADOS EN UN SISTEMA DE INFORMACIÓN Y PAPEL DEL ANALISTA DE SISTEMAS
 
-Schneiderman propone un conjunto de principios universales para el diseño de interfaces de usuario que son **independientes del sistema** pero que la Ingeniería de Requerimientos debe capturar como requisitos no funcionales.
+**Fuente:** Whitten y Bentley, *Análisis de Sistemas: diseño y métodos*, 7ª ed., Capítulo 1 ("Los jugadores y los involucrados en el sistema").
 
-### Contexto
+### Qué es un Involucrado
 
-**Objetivo:** Facilitar aprendizaje, minimizar errores, reducir tiempo de entrenamiento
+**Involucrado:** toda persona que tiene interés en un sistema de información existente o propuesto. Pueden ser trabajadores técnicos y no técnicos, internos o externos.
 
-**Pressman las incluye en el capítulo sobre Diseño de Interfaz, pero Zanel las pide explícitamente en Validación de requisitos** porque:
-- Son **criterios verificables** para validar prototipos de interfaz
-- Son **requisitos no funcionales** que el cliente debe aceptar
-- Son **transversales**: aplican a casi cualquier sistema interactivo
+### Los Involucrados en un Sistema de Información
 
-### Las Ocho Reglas
+Cada grupo ve el sistema desde una perspectiva distinta:
 
-#### 1. CONSISTENCIA
-- Acción idéntica = resultado idéntico en contextos similares
-- Vocabulario consistente (etiquetas, mensajes, colores)
-- Ejemplo: Si en una pantalla un botón verde significa "guardar", NO debe significar "eliminar" en otra
+- **PROPIETARIOS DEL SISTEMA:** pagan para que el sistema sea construido y operado, y establecen la visión y las prioridades. Suelen venir de las filas de los administradores.
+- **USUARIOS DEL SISTEMA:** definen los requerimientos de negocios y las expectativas del sistema. Son la vasta mayoría de los trabajadores de la información (internos y, gracias a Internet, también externos).
+- **DISEÑADORES DEL SISTEMA:** traducen los requerimientos de negocios en una solución técnica factible (diseñan bases de datos, entradas, salidas, redes, etc.).
+- **CONSTRUCTORES DEL SISTEMA:** construyen, implantan y mantienen el sistema, de acuerdo con las especificaciones de diseño.
+- **ANALISTAS DE SISTEMAS:** facilitan el desarrollo; coordinan los esfuerzos de propietarios, usuarios, diseñadores y constructores. Con frecuencia pueden jugar uno de esos papeles también.
+- **PROVEEDORES DE SERVICIO EXTERNO (ESP):** cualquier papel de involucrado puede ser desempeñado por un trabajador externo contratado por su experiencia en un proyecto específico.
+- **ADMINISTRADOR DE PROYECTOS:** coordina y dirige el proyecto.
 
-#### 2. ATAJOS (Shortcuts)
-- Para usuarios frecuentes
-- Combinaciones de teclado (Ctrl+S)
-- Abreviaturas (F5 en vez de "Refrescar")
-- Menús directos
+### El Papel del Analista de Sistemas
 
-#### 3. RETROALIMENTACIÓN INFORMATIVA (Informative Feedback)
-- Todo acto debe producir respuesta observable
-- **Inmediata** para acciones frecuentes/sencillas
-- **Detallada** para acciones largas/complejas
-- Ejemplo: Progress bar para descarga, sonido al guardar
+**Analista de sistemas:** especialista que estudia los problemas y necesidades de una organización para determinar la forma en que las personas, los datos, los procesos y la tecnología de la información pueden lograr óptimamente mejoras para la empresa.
 
-#### 4. CUADROS DE DIÁLOGO PARA CIERRE (Closing Dialogs)
-- Transiciones que indiquen completitud
-- Ejemplo: Wizard que cierra diciendo "Proceso completado"
-- **NO dejar user sin saber si acción se ejecutó**
+- Entiende tanto de **negocios** como de **cómputo**
+- Su papel **se superpone intencionalmente** con el de todos los demás involucrados: cubre la brecha entre quienes no son técnicos (propietarios, usuarios) y quienes sí lo son (diseñadores, constructores)
+- Para propietarios y usuarios: **identifica y valida** problemas y necesidades del negocio
+- Para diseñadores y constructores: se asegura de que la **solución técnica satisfaga las necesidades** del negocio
+- Es básicamente un **solucionador de problemas**. "Problema" incluye:
+  - Problemas reales o anticipados que requieren acción correctiva
+  - Oportunidades para mejorar una situación aunque nadie se queje
+  - Directivas para cambiar una situación
 
-#### 5. PREVENCIÓN Y MANEJO DE ERRORES
-- **Prevención es mejor que manejo**: validar entrada ANTES
-- Si ocurre error: mensaje PRECISO, NO genérico
-- Ofrecer solución: "Mail inválido. Ej: usuario@domain.com"
-- **Nunca usar códigos de error (Error #4027)**
+### Habilidades Requeridas por el Analista de Sistemas
 
-#### 6. ACCIÓN REVERSIBLE (Undo)
-- Todo acto reversible DEBE poder revertirse (Undo)
-- Ejemplo: No permites hacer algo sin "Deshacer"
-- Si no es reversible, pedir confirmación ANTES
+Además de las habilidades de análisis y diseño de sistemas, un analista debe desarrollar:
 
-#### 7. CONTROL AL USUARIO
-- Usuario es el que manda, no el sistema
-- NO debe haber operaciones forzadas
-- NO debe haber secuencias inflexibles ("wizard hell")
-- Poder cancelar/saltar pasos
+1. **Conocimiento del trabajo de las tecnologías de la información**
+2. **Experiencia en programación de computadoras**
+3. **Conocimiento general de procesos y terminología de negocios**
+4. **Habilidades generales de solución de problemas**
+5. **Buenas habilidades de comunicación interpersonal** (oral y escrita)
+6. **Buenas habilidades de relaciones interpersonales**
+7. **Flexibilidad y adaptabilidad** (no hay dos proyectos iguales)
+8. **Carácter y ética** (accede a información sensible y confidencial)
 
-#### 8. REDUCIR CARGA DE MEMORIA
-- NO requerir que usuario recuerde datos de pantalla anterior
-- Mostra contexto actual siempre (breadcrumb, título)
-- Opciones visibles (NO escondidas en menús 5 niveles profundo)
-- Defaults sensatos
+**Punto clave para examen:** Según Bentley, sus habilidades de comunicación, y no las técnicas, suelen ser el factor más determinante para el éxito de un analista.
 
-### En el Contexto de Validación
+## 1.12 — CONCEPTO DE MODELO E IMPORTANCIA DE MODELAR
 
-Cuando se valida prototipo de interfaz:
-1. **Revisar contra cada regla**
-2. **Documentar incumplimientos como defectos** ("Falta Undo en la operación de borrado")
-3. **Negociar con cliente** si va a cumplirse o es una excepción justificada
-
-</script>
-
-<script type="text/markdown" data-unit="2" data-label="Unidad II" data-short="Orientación a objetos" data-title="Paradigma orientado a objetos">
-## 2.1 — POR QUÉ MODELAMOS
+**Fuente:** Booch, Rumbaugh y Jacobson, *El Lenguaje Unificado de Modelado*, Capítulo 1 ("¿Por qué modelamos?").
 
 ### Razón de Fondo
 
@@ -798,9 +704,9 @@ Una **SIMPLIFICACIÓN DE LA REALIDAD** que se queda con lo **RELEVANTE para el p
 - Para un plano de arquitecto, son relevantes las dimensiones pero no quién vive dónde
 - Para un diagrama UML, es relevante qué datos tiene una Persona pero no su historial médico
 
-## 2.2 — LOS CUATRO PRINCIPIOS DEL MODELADO
+### Los Cuatro Principios del Modelado
 
-### Principio 1: Elección de Modelos Condiciona el Pensamiento
+#### Principio 1: Elección de Modelos Condiciona el Pensamiento
 
 La elección de **QUÉ MODELOS CREAR** influye profundamente en:
 - **CÓMO se acomete un problema**
@@ -813,7 +719,7 @@ El modelo NO es neutral; condiciona qué preguntas se hacen.
 - Si modelas con procesos, pensás en términos de flujos y dependencias
 - Cada uno lleva a arquitecturas distintas
 
-### Principio 2: Múltiples Niveles de Precisión
+#### Principio 2: Múltiples Niveles de Precisión
 
 Todo modelo puede expresarse en **DISTINTOS NIVELES DE PRECISIÓN**.
 
@@ -823,7 +729,7 @@ A veces conviene grueso (visión rápida), otras hace falta detalle.
 - Diagrama grueso al inicio del proyecto
 - Detallado cuando el equipo va a implementar
 
-### Principio 3: Ligados a la Realidad
+#### Principio 3: Ligados a la Realidad
 
 Los mejores modelos están **LIGADOS A LA REALIDAD**.
 
@@ -831,7 +737,7 @@ Uno que se aleja mucho deja de ser útil, por más prolijo que se vea.
 
 **Peligro:** Crear modelos complejos pero desconectados del problema real.
 
-### Principio 4: Un Único Modelo NO es Suficiente
+#### Principio 4: Un Único Modelo NO es Suficiente
 
 **Cualquier sistema no trivial se aborda mejor con un pequeño CONJUNTO DE MODELOS casi independientes, cada uno mostrando una vista distinta.**
 
@@ -843,7 +749,191 @@ Ejemplos:
 
 Cada modelo responde una pregunta diferente.
 
-## 2.3 — PERSPECTIVA ORIENTADA A OBJETOS VS ALGORÍTMICA
+## 1.13 — PROCESO DE NEGOCIO, REGLAS DE NEGOCIO E INTRODUCCIÓN A BPMN
+
+**Fuentes:** Pressman, Capítulo 30 (procesos de negocio); Whitten y Bentley (reglas de negocio); planificación de la cátedra (Introducción a BPMN).
+
+### Concepto de Proceso de Negocio
+
+Un **proceso de negocio** es "un conjunto de tareas lógicamente relacionadas que se llevan a cabo para obtener un determinado resultado de negocio" (Pressman).
+
+- Dentro del proceso se combinan **personas, equipos, recursos materiales y procedimientos** de negocio para producir un resultado concreto
+- Ejemplos: diseñar un nuevo producto, adquirir servicios, contratar un empleado, pagar a proveedores
+- Cada proceso de negocio tiene un **cliente bien definido** (la persona o grupo que recibe el resultado)
+- Los procesos **cruzan los límites organizativos**: requieren que participen distintos grupos de la organización
+
+### La Jerarquía del Negocio
+
+Según Pressman, el negocio se segmenta así:
+
+```
+El negocio
+   → sistemas de negocio (funciones de negocio)
+        → procesos de negocio
+             → subprocesos de negocio
+```
+
+### Actividades del Proceso
+
+Las **actividades** son las tareas lógicamente relacionadas que forman el proceso. Cada una transforma entradas en salidas y aporta al resultado de negocio.
+
+### Reglas de Negocio
+
+Las **reglas de negocio** especifican **políticas y procedimientos del negocio que el nuevo sistema debe obedecer** (Whitten y Bentley).
+
+- Ejemplos: cómo se calculan los cargos de envío, las condiciones para otorgar un crédito
+- Deben capturarse durante el análisis porque restringen lo que el sistema puede hacer
+
+### Por Qué Modelar el Negocio
+
+Modelar los procesos de negocio da una **visión más clara de los requerimientos** del sistema de información que les servirá de soporte (objetivo explícito de la planificación de la cátedra).
+
+- Conecta con el Proceso Unificado: el **modelo del negocio** es una de las formas de comprender el contexto del sistema (ver Unidad IV)
+
+### Introducción a BPMN
+
+**Introducción a BPMN:** Zanel pide "Introducción a BPMN" en Unidad I.
+
+#### Qué es BPMN
+
+- **Estándar OMG** (Object Management Group)
+- **Notación gráfica** para modelar procesos de negocio
+- Puente entre **analistas de negocio** (no técnicos) y **arquitectos de software** (técnicos)
+
+#### Elementos Básicos
+
+##### EVENTO (Circulito)
+
+- Algo que OCURRE y dispara o completa el proceso
+- **Inicio:** Proceso empieza (círculo simple)
+- **Intermedio:** Algo pasa EN MEDIO (círculo doble)
+- **Fin:** Proceso termina (círculo lleno)
+
+```
+o  → Inicio    ◎  → Intermedio    ●  → Fin
+```
+
+##### ACTIVIDAD/TAREA (Rectángulo)
+
+- Trabajo que se realiza
+- **Escribir informe**
+- **Aprobar solicitud**
+
+```
+┌─────────────────┐
+│  Escribir       │
+│  informe        │
+└─────────────────┘
+```
+
+##### PUERTA (Rombo)
+
+Decisión: caminos alternativos
+
+```
+    ┌──────────────────┐
+    │ ¿Aprobado?       │
+    └────────┬─────────┘
+        ┌────┴────┐
+       Sí         No
+        │          │
+```
+
+##### FLUJO (Flecha)
+
+Conecta elementos, muestra orden
+
+---
+
+#### Ejemplo Completo: Proceso de Compra
+
+```
+    o                    ┌──────────────────┐
+    │                    │ Seleccionar      │
+ Inicio            ├─→   │ artículos        │
+    │              │     └──────────────────┘
+    │              │              │
+    │      ┌───────┴──────────────┴────┐
+    └──────→ ¿Hay stock?               │
+           └──────┬──────────────┬─────┘
+                 Sí             No
+                  │              │
+          ┌───────▼──────┐   ┌───▼──────────┐
+          │ Procesar     │   │ Retrasar y   │
+          │ pago         │   │ avisar       │
+          └───────┬──────┘   └───┬──────────┘
+                  │              │
+          ┌───────┴──────────────┴────┐
+          │                           │
+          ├─ ¿Pago aprobado?         │
+          └───┬────────────┬─────────┘
+             Sí            No
+              │             │
+              ▼             ▼
+          ┌───────────┐  ┌──────────┐
+          │ Cancelar  │  │ Rechazar │
+          │ pedido    │  │ pedido   │
+          └───┬───────┘  └─────┬────┘
+              │                │
+          ┌───┴────────────────┘
+          │
+          ▼
+          ●
+         Fin
+```
+
+## 1.14 — REINGENIERÍA DE NEGOCIO, REINGENIERÍA DE SOFTWARE Y MEJORA CONTINUA
+
+**Fuente:** Pressman, Capítulo "Mantenimiento y Reingeniería" (Capítulo 29 en la 7ª edición; Capítulo 30 en la 5ª).
+
+### Reingeniería de Procesos de Negocio (RPN / BPR)
+
+**Definición (revista Fortune, citada por Pressman):** "la búsqueda e implementación de **cambios radicales** en el proceso de negocios para lograr un **avance significativo**".
+
+- Va más allá del ámbito de las tecnologías de la información y de la ingeniería de software
+- Puede aplicarse a cualquier nivel de la jerarquía del negocio, pero **cuanto más alto el nivel, más crece el riesgo**; por eso la mayoría de los esfuerzos se centran en procesos o subprocesos individuales
+- Es **iterativa y evolutiva**: no tiene principio ni fin, porque los objetivos del negocio cambian
+
+**Modelo de RPN (seis actividades):**
+
+1. **Definición del negocio:** se identifican objetivos en torno a cuatro controladores: reducción de costes, reducción de tiempos, mejora de calidad y desarrollo del personal
+2. **Identificación de procesos:** se identifican los procesos críticos y se priorizan
+3. **Evaluación de procesos:** se analizan y miden los procesos existentes (costes, tiempos, problemas de calidad)
+4. **Especificación y diseño de procesos:** se preparan casos prácticos para cada proceso a rediseñar
+5. **Creación de prototipos:** se prueba el proceso rediseñado antes de integrarlo
+6. **Refinamiento e instanciación:** se refina con la realimentación del prototipo y se instancia en el sistema de negocio
+
+**Advertencia:** la RPN no es una "bala de plata". Funciona si la aplican personas motivadas y formadas que entienden que es una **actividad continua**.
+
+### Reingeniería del Software
+
+Aunque una empresa rechace la reingeniería de negocio, la **reingeniería del software es algo que debe hacerse**: existen miles de sistemas heredados críticos que necesitan ser reconstruidos.
+
+- Pressman describe el mantenimiento como un **"iceberg"**: lo visible es poco comparado con los problemas y costes que hay debajo
+- El mantenimiento puede representar **más del 60%** de las inversiones de una organización de desarrollo
+- Conecta directamente con el **software heredado** y con el **deterioro** del software
+
+**Modelo de proceso de reingeniería del software (seis actividades):**
+
+1. **Análisis de inventario:** inventario de todas las aplicaciones para elegir candidatas
+2. **Reestructuración de documentos:** mejorar la documentación escasa típica del legacy
+3. **Ingeniería inversa:** recuperar la información de diseño a partir del software existente
+4. **Reestructuración del código:** el tipo más común; mejora la estructura del código sin cambiar la arquitectura
+5. **Reestructuración de datos:** actividad a gran escala sobre la arquitectura de datos
+6. **Ingeniería directa (forward engineering):** usa la información recuperada para reconstruir o mejorar el sistema
+
+Las actividades no siempre son secuenciales: el modelo es **cíclico**.
+
+### Mejora Continua
+
+- Pressman asocia la mejora continua a la **Gestión Total de la Calidad (GTC)**
+- Su primer paso es **kaizen**: un sistema de mejora continua del proceso
+- Es la base del **compromiso organizacional con la calidad** sobre el que se apoya la ingeniería de software (ver "Proceso, métodos y herramientas")
+
+</script>
+
+<script type="text/markdown" data-unit="2" data-label="Unidad II" data-short="Orientación a objetos" data-title="Paradigma orientado a objetos">
+## 2.1 — PARADIGMA: PERSPECTIVA ORIENTADA A OBJETOS VS ALGORÍTMICA
 
 ### Perspectiva Algorítmica (Tradicional)
 
@@ -870,7 +960,7 @@ Cada modelo responde una pregunta diferente.
 
 **La mayoría de lenguajes, SO y herramientas hoy son OO de alguna forma.**
 
-## 2.4 — CONCEPTOS CLAVE DEL PARADIGMA OO
+## 2.2 — OBJETO, CLASE Y MODELO DE OBJETOS
 
 ### ABSTRACCIÓN
 
@@ -953,7 +1043,37 @@ Si cambias un módulo, debería afectar minimalmente a los otros.
 - **CONCURRENCIA:** Objetos activos (tienen su hilo de control)
 - **PERSISTENCIA:** Existencia que trasciende tiempo o espacio (bases de datos)
 
-## 2.5 — RELACIONES ENTRE CLASES
+## 2.3 — RELACIONES ENTRE OBJETOS
+
+**Fuente:** Arlow y Neustadt, *Programación UML 2*, Capítulo 9 ("Relaciones").
+
+### El Vínculo
+
+Un **vínculo** (enlace) es una **conexión semántica entre dos objetos que permite enviar mensajes de un objeto a otro**.
+
+- Los objetos no pueden quedarse aislados: para realizar un trabajo útil tienen que **colaborar**, y colaboran **enviándose mensajes a través de vínculos**
+- Requisito mínimo: al menos uno de los objetos tiene que tener una **referencia** al otro
+- Los vínculos son **conexiones dinámicas**: existen en un momento dado de la ejecución
+- Normalmente un vínculo conecta exactamente dos objetos
+
+### Vínculos y Asociaciones
+
+**Si existe un vínculo entre dos objetos, debe existir alguna conexión semántica entre sus clases.**
+
+- El **vínculo** es la relación entre **objetos** (instancias)
+- La **asociación** es la relación entre **clases** (describe un conjunto de vínculos)
+
+```
+Vínculo es a Asociación como Objeto es a Clase
+```
+
+### Diagrama de Objetos
+
+Muestra **objetos y sus relaciones (vínculos) en un punto en el tiempo**: es como una "instantánea" de parte de un sistema orientado a objetos en ejecución.
+
+- Los objetos conectados pueden adoptar **roles** en cada extremo del vínculo
+
+## 2.4 — RELACIONES ENTRE CLASES
 
 **Crítico para diseño.** Estas son las conexiones que hacen que un conjunto de objetos forme un sistema.
 
@@ -1054,49 +1174,27 @@ Cliente  -------realiza-------> Pedido
 ```
 (Usuario realiza la interfaz IPersistencia)
 
-## 2.6 — CÓMO DETECTAR CLASES EN UN ENUNCIADO
+## 2.5 — DIAGRAMA DE CLASES
 
-**CINCO CATEGORÍAS a buscar:**
+**Fuentes:** Booch, Rumbaugh y Jacobson, *El Lenguaje Unificado de Modelado*, Capítulo 8; Arlow y Neustadt, Capítulos 7 y 9.
 
-### 1. ROLES QUE CUMPLEN PERSONAS
-- Profesor
-- Alumno
-- Cliente
-- Vendedor
-- Administrador
+### Qué Muestra
 
-### 2. ROLES DE ORGANIZACIONES
-- Banco
-- Empresa
-- Departamento
-- Filial
-- Proveedor
+Un **diagrama de clases** muestra un conjunto de **clases**, **interfaces** y sus **relaciones** (asociación, agregación, composición, generalización, dependencia y realización).
 
-### 3. LUGARES
-- Aula
-- Biblioteca
-- Sucursal
-- Almacén
-- Tienda
+- Es el diagrama más común en el modelado orientado a objetos
+- Representa la **vista estática** del sistema (qué tipos de objetos son importantes y cómo se relacionan)
+- Cada clase se dibuja como un rectángulo con tres compartimentos: **nombre**, **atributos** y **operaciones**
 
-### 4. COSAS
-- Vehículo
-- Libro
-- Producto
-- Factura
-- Cuenta
+### Para Qué Sirve
 
-### 5. TRANSACCIONES O EVENTOS
-- Venta
-- Inscripción
-- Vuelo
-- Pedido
-- Préstamo
-- Transferencia
+- Modelar el **vocabulario** del sistema (conecta con el modelo del dominio)
+- Especificar la **estructura** que tendrán las clases
+- Servir de base para las colaboraciones que realizan los casos de uso
 
-**USO:** Releer enunciado buscando explícitamente estas cinco categorías. Cubren la mayoría de clases que terminarán en modelo de dominio.
+**Relación con el diagrama de objetos:** el diagrama de clases muestra las **clases** (lo general); el diagrama de objetos muestra **instancias concretas** en un momento dado.
 
-## 2.7 — EL MODELO DE DOMINIO DEL PROBLEMA
+## 2.6 — EL MODELO DEL DOMINIO DEL PROBLEMA
 
 ### Qué es
 
@@ -1113,7 +1211,49 @@ Captura los **CONCEPTOS IMPORTANTES** del contexto:
 - Evita que programador invente nombres distintos para lo mismo
 - Permite al equipo hablar el mismo idioma que el cliente
 
-## 2.8 — PATRONES TRANSACCIONALES DE COAD
+### Cómo Detectar Clases en un Enunciado
+
+**CINCO CATEGORÍAS a buscar:**
+
+#### 1. ROLES QUE CUMPLEN PERSONAS
+- Profesor
+- Alumno
+- Cliente
+- Vendedor
+- Administrador
+
+#### 2. ROLES DE ORGANIZACIONES
+- Banco
+- Empresa
+- Departamento
+- Filial
+- Proveedor
+
+#### 3. LUGARES
+- Aula
+- Biblioteca
+- Sucursal
+- Almacén
+- Tienda
+
+#### 4. COSAS
+- Vehículo
+- Libro
+- Producto
+- Factura
+- Cuenta
+
+#### 5. TRANSACCIONES O EVENTOS
+- Venta
+- Inscripción
+- Vuelo
+- Pedido
+- Préstamo
+- Transferencia
+
+**USO:** Releer enunciado buscando explícitamente estas cinco categorías. Cubren la mayoría de clases que terminarán en modelo de dominio.
+
+## 2.7 — PATRONES PARA LA CONSTRUCCIÓN DEL MODELO DEL DOMINIO (COAD)
 
 ### Qué es un Patrón
 
@@ -1170,6 +1310,50 @@ Al leer un enunciado de dominio:
 - Lector-Préstamo → Participante-Transacción
 - Préstamo-Devolución → Transacción-TransacciónSubsiguiente
 
+## 2.8 — EL LENGUAJE UNIFICADO DE MODELADO (UML 2.0): CARACTERÍSTICAS GENERALES
+
+**Fuentes:** Booch, Rumbaugh y Jacobson, *El Lenguaje Unificado de Modelado*, Capítulos 1 y 2; Arlow y Neustadt, Capítulo 1 ("¿Qué es UML?").
+
+### Qué es UML
+
+UML (Unified Modeling Language) es un **lenguaje de modelado visual** estándar para **visualizar, especificar, construir y documentar** los artefactos de un sistema con gran cantidad de software.
+
+- Es un **lenguaje**, no una metodología: la metodología que mejor lo complementa es el **Proceso Unificado**
+- Considera el mundo como **sistemas de objetos que interactúan**. Sus modelos tienen:
+  - **Estructura estática:** qué tipos de objetos son importantes y cómo se relacionan
+  - **Comportamiento dinámico:** cómo los objetos colaboran para realizar las funciones del sistema
+
+### Los Tres Bloques de Construcción
+
+1. **ELEMENTOS**
+   - **Estructurales:** son los "nombres" del modelo (clase, interfaz, caso de uso, componente, nodo...)
+   - **De comportamiento:** son los "verbos" del modelo (interacciones, máquinas de estados)
+   - **De agrupación:** uno solo, el **paquete**
+   - **De anotación:** uno solo, la **nota** (como un post-it)
+2. **RELACIONES:** enlazan elementos (dependencia, asociación, generalización, realización)
+3. **DIAGRAMAS:** muestran vistas interesantes del modelo
+
+### Los Cuatro Mecanismos Comunes
+
+1. **Especificaciones:** descripciones textuales de las características y la semántica de los elementos; lo más importante del modelo
+2. **Adornos:** información sobre un elemento que se muestra en el diagrama para ilustrar un punto
+3. **Divisiones comunes:**
+   - **Clasificador e instancia** (cuenta bancaria / mi cuenta bancaria)
+   - **Interfaz e implementación** (el contrato / los detalles de cómo funciona)
+4. **Mecanismos de extensibilidad:**
+   - **Restricciones:** agregan nuevas reglas a los elementos
+   - **Estereotipos:** introducen nuevos elementos de modelado basados en los existentes
+   - **Valores etiquetados:** agregan nuevas propiedades (palabra clave + valor)
+   - Un **perfil UML** es una colección de restricciones, estereotipos y valores etiquetados
+
+### La Arquitectura: Vista 4+1
+
+- **Vista lógica:** funcionalidad y vocabulario del sistema
+- **Vista de procesos:** rendimiento, escalabilidad, capacidad de procesamiento
+- **Vista de implementación:** ensamblaje y gestión de la configuración
+- **Vista de despliegue:** topología, distribución, entrega e instalación
+- **Vista de casos de uso:** une a las cuatro anteriores y describe los requisitos
+
 </script>
 
 <script type="text/markdown" data-unit="3" data-label="Unidad III" data-short="Procesos y agilidad" data-title="Procesos de desarrollo de software y enfoques ágiles">
@@ -1218,7 +1402,7 @@ Un proyecto de 3 personas para un sistema chico y un proyecto de 200 personas pa
 
 **El equilibrio entre ambos es una CONDICIÓN PARA QUE EL PROCESO SOBREVIVA AL PRIMER MES DE PROYECTO.**
 
-## 3.2 — DEFINICIÓN DE PROCESO DE SOFTWARE (PRESSMAN)
+## 3.2 — MODELOS DE PROCESO DE SOFTWARE: CONCEPTO (PRESSMAN)
 
 Pressman define proceso como:
 
@@ -1261,7 +1445,7 @@ Por eso un proceso adoptado para un proyecto puede diferir bastante del adoptado
 - La autonomía del equipo
 - El rigor con que se documenta todo
 
-## 3.3 — LAS CINCO ACTIVIDADES ESTRUCTURALES GENÉRICAS
+## 3.3 — ACTIVIDADES GENÉRICAS DEL PROCESO
 
 Pressman propone una estructura de proceso general, válida para **cualquier proyecto sin importar su tamaño**, compuesta por **CINCO ACTIVIDADES:**
 
@@ -1321,7 +1505,7 @@ Se complementan con **actividades sombrilla** que corren a lo largo de **TODO el
 - Gestión de la reutilización
 - Preparación del producto de trabajo
 
-## 3.4 — TRES PARADIGMAS GENERALES DE PROCESO
+## 3.4 — MODELOS DE PROCESO: PARADIGMAS GENERALES
 
 La mayoría de los modelos de proceso concretos se apoyan, en el fondo, en **UNO DE TRES PARADIGMAS:**
 
@@ -1400,7 +1584,7 @@ Toma el concepto de iteración y lo formaliza en:
 - Artefactos específicos
 - Roles y responsabilidades
 
-## 3.5 — OTROS MODELOS CLÁSICOS DE PROCESO
+## 3.5 — OTROS MODELOS DE PROCESO: VENTAJAS Y DESVENTAJAS
 
 ### Modelo de Construcción de Prototipos
 
@@ -1471,7 +1655,365 @@ Toma el concepto de iteración y lo formaliza en:
 
 **Ejemplo:** SQL es 4GL, permite expresar consultas sin especificar cómo obtenerlas
 
-## 3.6 — EL MANIFIESTO POR EL DESARROLLO ÁGIL DE SOFTWARE (2001)
+## 3.6 — LAS CUATRO "P": PERSONAS, PROYECTO, PRODUCTO Y PROCESO
+
+**Fuente:** Jacobson, Booch y Rumbaugh, *El Proceso Unificado de Desarrollo de Software*, Capítulo 2.
+
+El resultado final de un **proyecto** software es un **producto** que toma forma gracias a la intervención de muchas **personas**. Un **proceso** guía sus esfuerzos, a modo de plantilla, normalmente automatizado por **herramientas**.
+
+### Las Cuatro "P" (y las Herramientas)
+
+- **PERSONAS:** los principales autores de un proyecto (arquitectos, desarrolladores, ingenieros de prueba, personal de gestión, usuarios, clientes y otros interesados). Son seres humanos reales, a diferencia del término abstracto *trabajador*.
+- **PROYECTO:** elemento organizativo a través del cual se gestiona el desarrollo de software. El resultado de un proyecto es **una versión de un producto**.
+- **PRODUCTO:** artefactos que se crean durante la vida del proyecto: **modelos, código fuente, ejecutables y documentación**.
+- **PROCESO:** definición del conjunto completo de actividades necesarias para **transformar los requisitos de usuario en un producto**. Es una **plantilla para crear proyectos**.
+- **HERRAMIENTAS:** software que se usa para automatizar las actividades definidas en el proceso.
+
+### Las Personas son Decisivas
+
+- Los procesos de desarrollo **afectan a las personas**: el proceso debe hacerles el trabajo más eficaz
+- **De "recursos" a "trabajadores":** un *trabajador* es un **puesto (papel)** que una persona puede desempeñar. Una persona puede ser varios trabajadores durante un proyecto, y un trabajador puede ser un grupo de personas
+
+### Los Proyectos Construyen el Producto
+
+- El primer ciclo de vida de un proyecto desarrolla el sistema inicial (proyecto "inicial" o *green-field*)
+- Todo proyecto obtiene su producto a través de una **secuencia de cambios** (ciclos, fases, iteraciones)
+
+### El Producto es Más que Código
+
+- Un sistema software es **todos los artefactos** necesarios para representarlo de forma comprensible para máquinas y personas
+- Un sistema posee una **colección de modelos** (casos de uso, análisis, diseño, implementación, despliegue, prueba)
+
+### El Proceso Dirige los Proyectos
+
+- El proceso es una **plantilla** que se **especializa** para cada proyecto (tamaño, dominio, organización)
+- Las **herramientas son esenciales**: influyen en el proceso y el proceso las dirige (equilibrio entre ambos)
+
+## 3.7 — EL PROCESO UNIFICADO: CONCEPTO Y CARACTERÍSTICAS
+
+**Fuente:** Jacobson, Booch y Rumbaugh, *El Proceso Unificado de Desarrollo de Software*, Capítulo 1.
+
+### Qué es el Proceso Unificado
+
+Un **proceso de desarrollo de software** es el conjunto de actividades necesarias para **transformar los requisitos de un usuario en un sistema software**.
+
+El Proceso Unificado es más que un simple proceso: es un **marco de trabajo genérico** que puede especializarse para una gran variedad de sistemas, áreas de aplicación, organizaciones, niveles de aptitud y tamaños de proyecto.
+
+- Está **basado en componentes**: el sistema está formado por componentes interconectados a través de interfaces bien definidas
+- Utiliza **UML** para preparar todos los esquemas del sistema
+
+### Las Tres Frases Clave
+
+Los aspectos que definen al Proceso Unificado y lo hacen único se resumen en tres frases:
+
+1. **Dirigido por casos de uso**
+2. **Centrado en la arquitectura**
+3. **Iterativo e incremental**
+
+Las tres ideas se sostienen mutuamente: los casos de uso dirigen y la arquitectura da forma; ambos evolucionan en paralelo a lo largo de las iteraciones.
+
+## 3.8 — PRIMERA CARACTERÍSTICA: DIRIGIDO POR CASOS DE USO
+
+Un caso de uso describe una **porción de funcionalidad** que le da un **valor observable** a un **ACTOR** (usuario o sistema externo).
+
+### LA AFIRMACIÓN FUERTE
+
+Los casos de uso **NO son solamente una técnica para capturar requisitos**: son el **HILO CONDUCTOR de TODO el proyecto**.
+
+### CÓMO FUNCIONA LA CADENA
+
+```
+1. Modelo de casos de uso
+         ↓
+2. Modelos de análisis (cada caso de uso se realiza mediante
+   una colaboración de clases de análisis)
+         ↓
+3. Modelos de diseño (cada caso de uso se realiza mediante
+   una colaboración de clases de diseño y subsistemas)
+         ↓
+4. Implementación (componentes que realizan esas clases)
+         ↓
+5. Pruebas (casos de prueba derivados de casos de uso)
+```
+
+### TRAZABILIDAD
+
+Cuando un requisito cambia, se puede rastrear:
+- **QUÉ CASOS DE USO** afecta
+- Desde ahí, **QUÉ CLASES** tienen que cambiar
+- **QUÉ COMPONENTES** hay que reescribir
+- **QUÉ PRUEBAS** hay que actualizar
+
+Esa cadena se llama **TRAZABILIDAD** y es **UNA DE LAS RAZONES MÁS FUERTES** para adoptar el enfoque.
+
+---
+
+### LOS CASOS DE USO CUMPLEN TRES FUNCIONES
+
+1. **Capturar los requisitos** que aportan valor añadido
+   - Evita que el equipo construya funcionalidad que nadie pidió
+
+2. **Dirigir el proceso**
+   - La trazabilidad que acabamos de describir
+
+3. **Idear la arquitectura**
+   - Nos lleva directamente a la segunda característica: centrado en la arquitectura
+
+## 3.9 — SEGUNDA CARACTERÍSTICA: CENTRADO EN LA ARQUITECTURA
+
+La **arquitectura** es la **DECISIÓN ESTRATÉGICA de alto nivel** sobre la estructura del sistema.
+
+Es como el "plano" del edificio software.
+
+### PUNTO CLAVE
+
+La mayoría de los casos de uso **IMPACTAN ARQUITECTURA**.
+
+Una arquitectura sólida:
+- Facilita la trazabilidad
+- Permite dividir el trabajo entre equipos
+- Reduce los riesgos de integración
+- Facilita el mantenimiento futuro
+
+---
+
+### FRASE ORO (Resume el Rol del Arquitecto)
+
+"El objetivo de la arquitectura de un sistema es encontrar el conjunto **MÍNIMO de colaboraciones BIEN ESTRUCTURADAS** que satisfacen el **flujo de eventos especificado en TODOS los casos de uso** del sistema"
+
+**Leyendo esa frase:**
+- "Conjunto mínimo" → la arquitectura no debe tener piezas de más
+- "Bien estructuradas" → calidad interna de cada colaboración
+- "Que satisfacen el flujo de eventos de todos los casos de uso" → **LA FUNCIÓN MANDA:** una arquitectura elegante que no soporta los casos de uso no sirve
+
+---
+
+### RESPUESTA A "¿POR QUÉ LOS CASOS DE USO GUÍAN Y LA ARQUITECTURA CONDUCE?"
+
+**Esta frase es la mejor respuesta posible para un examen oral:**
+
+**Los casos de uso especifican QUÉ debe hacer el sistema (el requisito funcional sin comprometerse con HOW se implementa).** La arquitectura es el conjunto mínimo de colaboraciones bien estructuradas que satisfacen ese QUÉ. Así, el orden es: primero entender QUÉ (casos de uso), luego decidir CÓMO estructura general (arquitectura), luego CÓMO detalles (diseño), luego materializar (código).
+
+## 3.10 — TERCERA CARACTERÍSTICA: ITERATIVO E INCREMENTAL
+
+**Fuente:** Jacobson, Booch y Rumbaugh, Capítulos 1 y 5.
+
+### La Idea
+
+El desarrollo de un producto software comercial puede durar meses o más de un año. Es práctico **dividir el trabajo en partes más pequeñas o miniproyectos**.
+
+- Cada miniproyecto es una **iteración** que resulta en un **incremento**
+- **Iteración:** pasos en el flujo de trabajo
+- **Incremento:** crecimiento en el producto
+
+### Cómo se Eligen las Iteraciones
+
+Los desarrolladores basan la selección de qué implementar en cada iteración en dos factores:
+
+1. La iteración trata un **grupo de casos de uso** que juntos amplían la utilidad del producto
+2. La iteración trata los **riesgos más importantes**
+
+Cada iteración recorre los **flujos de trabajo** (requisitos, análisis, diseño, implementación y prueba).
+
+### Por Qué un Desarrollo Iterativo e Incremental
+
+- Atenuación de **riesgos** (se atacan temprano)
+- Obtención de una **arquitectura robusta**
+- Gestión de **requisitos cambiantes**
+- Permitir **cambios tácticos**
+- Conseguir una **integración continua**
+- Conseguir un **aprendizaje temprano**
+
+La aproximación iterativa está **dirigida por los riesgos**.
+
+### Conexión con las Otras Dos Características
+
+- Los **casos de uso** dicen qué construir en cada iteración
+- La **arquitectura** da la estructura que las iteraciones van completando
+
+## 3.11 — LAS CUATRO FASES DEL PROCESO UNIFICADO
+
+**Fuente:** Jacobson, Booch y Rumbaugh, Capítulos 1 (1.5.2 "Fases dentro de un ciclo") y 6 (6.4).
+
+La vida del Proceso Unificado se organiza en **ciclos**; cada ciclo termina con una **versión del producto** y se divide en **cuatro fases**. Cada fase termina con un **hito**, determinado por la disponibilidad de un conjunto de artefactos.
+
+### Fase 1: INICIO
+
+Se desarrolla una **descripción del producto final** a partir de una buena idea y se presenta el **análisis de negocio**.
+
+**Responde tres preguntas:**
+- ¿Cuáles son las principales funciones del sistema para sus usuarios más importantes?
+- ¿Cómo podría ser la arquitectura del sistema?
+- ¿Cuál es el plan de proyecto y cuánto costará desarrollar el producto?
+
+**Actividades:**
+- Se construye un **modelo de casos de uso simplificado** con los casos de uso más críticos
+- La arquitectura es **provisional** (un esbozo de los subsistemas más importantes)
+- Se identifican y priorizan los **riesgos** más importantes
+- Se planifica en detalle la fase de elaboración y se estima el proyecto de manera aproximada
+- Los analistas identifican la mayoría de los casos de uso para delimitar el sistema y **detallan los más importantes (menos del 10%)**
+
+### Fase 2: ELABORACIÓN
+
+Se **especifican en detalle la mayoría de los casos de uso** y se **diseña la arquitectura** del sistema.
+
+- Se capturan la mayoría de los requisitos restantes: el objetivo es haber capturado **sobre un 80% de los requisitos** al final de la fase
+- Solo **entre un 5 y un 10%** de esos requisitos queda implementado en la línea base
+- Se realizan los casos de uso más críticos identificados en el inicio
+- **Resultado:** la **línea base de la arquitectura** (un "esqueleto" ejecutable, con poco músculo)
+- **Al final** el director de proyecto puede planificar las actividades y estimar los recursos para terminar el proyecto
+
+**Pregunta clave:** ¿son suficientemente estables los casos de uso, la arquitectura y el plan, y están los riesgos suficientemente controlados como para comprometerse al desarrollo entero mediante un contrato?
+
+### Fase 3: CONSTRUCCIÓN
+
+Se **crea el producto**: se añaden los "músculos" (software terminado) al esqueleto (la arquitectura).
+
+- La línea base de la arquitectura crece hasta convertirse en el sistema completo
+- **El grueso de los recursos** se emplea en esta fase
+- La arquitectura es estable, aunque pueden descubrirse mejoras menores
+- Al final, el producto contiene todos los casos de uso acordados para esta versión (aunque puede no estar libre de defectos)
+
+**Pregunta decisiva:** ¿cubre el producto las necesidades de algunos usuarios de manera suficiente como para hacer una primera entrega?
+
+### Fase 4: TRANSICIÓN
+
+Cubre el período durante el cual el producto se convierte en **versión beta**.
+
+- Un número reducido de usuarios con experiencia prueba el producto e informa defectos y deficiencias
+- Se corrigen los problemas y se incorporan mejoras para la versión general
+- Incluye **fabricación, formación del cliente, línea de ayuda y asistencia**, y corrección de defectos tras la entrega
+- Los defectos se dividen en los que justifican una versión incrementada (*delta*) y los que se corrigen en la siguiente versión normal
+
+### Hitos
+
+- Cada fase termina con un **hito principal**: los directores toman **decisiones cruciales** (continuar, reorientar, cancelar) antes de pasar a la siguiente fase
+- Los hitos permiten controlar el progreso según **criterios predefinidos**
+- Cada **iteración** también termina con un hito menor
+
+### Captura de Requisitos a lo Largo de las Fases
+
+- **Inicio:** se identifica la mayoría de los casos de uso y se detallan los más importantes
+- **Elaboración:** se captura la mayoría de los requisitos restantes (hasta ~80%)
+- **Construcción:** se capturan (e implementan) los requisitos restantes
+- **Transición:** casi no hay captura de requisitos, salvo que cambien
+
+## 3.12 — PLANIFICACIÓN: DOS PLANES, NO UNO
+
+### Plan de Proyecto (Mapa Global)
+
+- Asigna tiempos a cada fase
+- Fija fechas y criterios de hitos principales
+- Establece cuántas iteraciones tendrá cada fase
+- Necesariamente **GRUESO** al principio (poco se sabe)
+- Se va **precisando** a medida que se aprende
+
+---
+
+### Plan de Iteración (Detallado)
+
+- Se arma cuando la fecha de comienzo se acerca
+- **Contenido decidido por:**
+  1. Qué casos de uso completar (parcial o totalmente)
+  2. Qué riesgos técnicos mitigar
+  3. Qué cambios de requisitos o defectos absorber
+  4. Qué subsistemas implementar (total o parcial)
+
+---
+
+### Regla Práctica
+
+- **Plan de iteración actual** = COMPLETAMENTE detallado
+- **Plan de siguiente** = A MEDIO detallar
+- **Planes posteriores** = Apenas ESBOZADOS
+
+**Razón:** Planificar en detalle 8 meses adelante es desperdiciar trabajo (habremos aprendido cosas que invalidan ese detalle)
+
+## 3.13 — FASES VS FLUJOS DE TRABAJO: LOS CINCO FLUJOS FUNDAMENTALES
+
+Esta es **la confusión más común** de toda la unidad, y por eso mismo la **pregunta más rentable de contestar bien**.
+
+### Concepto Fundamental
+
+**Las fases y los flujos de trabajo son DOS DIMENSIONES INDEPENDIENTES del proceso.**
+
+- **FASES** = **TIEMPO:** Dividen el calendario del proyecto
+- **FLUJOS DE TRABAJO** = **TIPO DE TRABAJO:** Dividen las clases de actividad
+
+**En CADA FASE se hace algo de TODOS los flujos de trabajo, en PROPORCIONES DISTINTAS.**
+
+```
+                      Flujos de Trabajo
+                 Req  Análisis  Diseño  Impl  Prueba
+            ┌────┬────┬────┬────┬────┐
+Inicio      │ XX │ X  │    │    │    │
+            ├────┼────┼────┼────┼────┤
+Elaboración │XXX │XXX │ XX │ XX │ X  │
+            ├────┼────┼────┼────┼────┤
+Construcción│ X  │ XX │XXX │XXX │ XX │
+            ├────┼────┼────┼────┼────┤
+Transición  │    │    │ X  │ XX │XXX │
+            └────┴────┴────┴────┴────┘
+```
+
+### Los Cinco Flujos de Trabajo Fundamentales
+
+Se REPITEN EN CADA ITERACIÓN, EN TODAS LAS FASES. **Lo que cambia es la PROPORCIÓN de esfuerzo.**
+
+El gráfico de las "jorobas superpuestas" lo muestra:
+- Eje horizontal = tiempo (fases e iteraciones)
+- Cada curva = esfuerzo en cada flujo
+
+### Lectura Correcta
+
+```
+Esfuerzo
+    │
+    │    ╱╲
+ R  │   ╱  ╲___
+ e  │  ╱
+ q  │ ╱
+    │___
+    │    ╱╲
+    │   ╱  ╲___
+ A  │  ╱    Análisis
+ n  │ ╱
+    │___
+    │         ╱╲
+    │        ╱  ╲__
+ D  │       ╱   Diseño
+ i  │      ╱
+    │_____╱
+    │            ╱╲
+    │           ╱  ╲
+ I  │          ╱   Impl
+ m  │         ╱
+    │________╱
+    │                ╱╲
+    │               ╱  ╲
+ P  │              ╱   Prueba
+ r  │             ╱
+    │____________╱
+    └─────────────────────────
+      I  E  C  T
+     Fases
+```
+
+**Observaciones:**
+1. REQUISITOS: Alta al principio, decrece pero **nunca llega a cero** (se refinan a lo largo)
+2. ANÁLISIS Y DISEÑO: Pico en elaboración
+3. IMPLEMENTACIÓN: Pico en construcción
+4. PRUEBA: **Crece sostenidamente**, máximo en final de construcción y transición, **PERO EMPIEZA DESDE ITERACIÓN 1**
+
+### Conclusión Crítica
+
+**En el Proceso Unificado NO existe "la etapa de pruebas".**
+
+Se prueba desde la primera iteración. **Lo que existe es una FASE donde el esfuerzo de prueba es MÁXIMO.**
+
+**Esa distinción entre "etapa" y "proporción de esfuerzo" es exactamente lo que separa iterativo de cascada disfrazada.**
+
+## 3.14 — DESARROLLO ÁGIL: EL MANIFIESTO (2001)
 
 Un grupo de desarrolladores condensó lo que había aprendido sobre construir software de forma más efectiva.
 
@@ -1544,7 +2086,9 @@ Un grupo de desarrolladores condensó lo que había aprendido sobre construir so
 
 12. **A intervalos regulares**, el equipo REFLEXIONA cómo ser más efectivo y AJUSTA comportamiento
 
-## 3.7 — SCRUM: MARCO ÁGIL
+## 3.15 — SCRUM: MARCO ÁGIL
+
+**Fuente:** *La Guía de Scrum 2020* (edición en español), bibliografía de la cátedra.
 
 ### Definición
 
@@ -1572,11 +2116,11 @@ Intencionalmente incompleto: define solo las partes necesarias para implementar 
 - Ajustar proceso o producto apenas se detecta desvío
 - Si algo no funciona, cambiar
 
-### Los Cinco Valores
+### Los Cinco Valores (según la Guía 2020: Compromiso, Enfoque, Apertura, Respeto y Coraje)
 
 - **Compromiso:** Con el objetivo
-- **Foco:** En lo importante
-- **Franqueza:** Sin secretos
+- **Enfoque:** En lo importante
+- **Apertura:** Sin secretos
 - **Respeto:** Mutuo
 - **Coraje:** Para decir verdades incómodas
 
@@ -1599,7 +2143,7 @@ Equipo pequeño (típicamente ≤10 personas)
 **DEVELOPERS:**
 - Se comprometen a crear el Increment cada Sprint
 - Arman Sprint Backlog
-- Cuidan calidad (Definición de Terminado)
+- Cuidan calidad (Definición de Hecho (Definition of Done))
 - Ajustan plan día a día
 - Se responsabilizan mutuamente
 
@@ -1685,15 +2229,15 @@ Cada artefacto tiene un **COMPROMISO** que le da sentido:
 #### INCREMENT
 
 - Cada peldaño concreto y utilizable que se suma a los anteriores
-- **COMPROMISO:** Definición de Terminado (criterio de calidad que decide cuándo un elemento está terminado)
+- **COMPROMISO:** Definición de Hecho (Definition of Done) (criterio de calidad que decide cuándo un elemento está terminado)
 
 #### Conexión con Proceso Unificado
 
-Como iteración del PU termina en release ejecutable vs criterios predefinidos, un Sprint termina en Increment vs Definición de Terminado.
+Como iteración del PU termina en release ejecutable vs criterios predefinidos, un Sprint termina en Increment vs Definición de Hecho (Definition of Done).
 
 **La lógica es la misma:** ciclos cortos, cierre ejecutable, medida de avance real.
 
-## 3.8 — DESARROLLO LEAN
+## 3.16 — DESARROLLO LEAN
 
 Aplica principios del "pensamiento esbelto" de Toyota al software (adaptado por Mary y Tom Poppendieck).
 
@@ -1737,67 +2281,82 @@ Aplica principios del "pensamiento esbelto" de Toyota al software (adaptado por 
 
 **Realidad actual:** Muchos usan HÍBRIDO (Scrum para estructura, Lean para filosofía)
 
-## 3.8B — KANBAN (Complemento de Lean)
+## 3.17 — KANBAN
 
-**NOTA:** Zanel proporciona "Essential-Kanban-Condensed-Spanish.pdf". Esto es **complemento a Lean**, NO replacement.
+**Fuente:** *Essential Kanban Condensed* (edición en español), bibliografía de la cátedra.
 
 ### De Dónde Viene
 
-- Técnica de manufactura de Toyota
-- "Kanban" = tarjeta en japonés
-- Sistema de **"Pull" (tirar)** vs "Push" (empujar)
+- La palabra japonesa **"kanban"** significa **"señal"**, "tarjeta de señalización", "cartel" o "tablero visual"
+- El Método Kanban se ocupa del **diseño, la gestión y la mejora de sistemas de flujo** para el trabajo del conocimiento
+- Se basa en **hacer visible** el trabajo intangible
+- Introducir y respetar límites de trabajo en progreso cambia de un sistema **"push" (empujar)** a un sistema **"pull" (tirar)**: los elementos nuevos no se inician hasta que se completa el trabajo anterior
 
-### Principios Centrales
+### Valores
 
-#### Principio 1: VISUALIZAR TRABAJO
+Los valores de Kanban se resumen en una palabra: **respeto**. El libro los desgrana en **nueve valores**, entre ellos **transparencia** y **flujo**.
 
-Todo trabajo debe estar **VISIBLE** en un tablero:
+### Los Tres Principios Directores
+
+1. **Sostenibilidad:** encontrar un ritmo sostenible y un foco en la mejora (mira hacia adentro)
+2. **Orientación al servicio:** rendimiento y satisfacción del cliente (mira hacia afuera)
+3. **Supervivencia:** mantener la competitividad y la adaptabilidad (mira hacia el futuro)
+
+### Los Seis Principios Fundacionales
+
+**Principios de gestión del cambio:**
+1. Empezar con lo que estés haciendo ahora (entender los procesos actuales y respetar roles y responsabilidades)
+2. Acordar buscar la mejora a través del **cambio evolutivo**
+3. Fomentar el **liderazgo en cada nivel** de la organización
+
+**Principios de despliegue de servicios:**
+4. Entender las necesidades y expectativas de los clientes y focalizarse en ellas
+5. Gestionar el trabajo: dejar que la gente se **auto-organice** alrededor de las tareas
+6. Evolucionar las políticas para mejorar los resultados hacia el cliente y el negocio
+
+### Las Seis Prácticas Generales
+
+#### 1. VISUALIZAR
+Todo el trabajo debe estar **visible** en un tablero:
 ```
       TO DO       |     DOING      |     DONE
     ┌─────────┐  |   ┌─────────┐  |  ┌─────────┐
     │ Feature │  |   │ Feature │  |  │ Feature │
     │    1    │  |   │    5    │  |  │    3    │
     └─────────┘  |   └─────────┘  |  └─────────┘
-    ┌─────────┐  |   ┌─────────┐  |  ┌─────────┐
-    │ Feature │  |   │ Bug #12 │  |  │ Feature │
-    │    2    │  |   └─────────┘  |  │    4    │
-    └─────────┘  |                |  └─────────┘
-                 |
 ```
+- Cada columna = etapa del proceso; cada tarjeta = elemento de trabajo; el orden es de izquierda a derecha
 
-- Cada columna = estado
-- Cada tarjeta = trabajo
-- Mueve tarjeta de izquierda a derecha conforme avanza
+#### 2. LIMITAR EL TRABAJO EN PROGRESO (WiP)
+- Máximo de elementos en curso simultáneamente
+- Observar, limitar y optimizar el WiP mejora el tiempo de entrega, la calidad y la tasa de entrega
+- La gestión inefectiva busca que todos estén "ocupados"; Kanban busca que el trabajo **fluya**
 
-#### Principio 2: LIMITAR TRABAJO EN PROGRESO (WIP)
+#### 3. GESTIONAR EL FLUJO
+- Maximizar la entrega de valor, minimizar los **tiempos de entrega (Lead Time)** y que el flujo sea predecible
+- El **Lead Time** (tiempo de entrega al cliente) es una métrica clave
 
-- **WIP LIMIT:** Máximo número de items en DOING simultáneamente
-- Si límite es 3 en DOING y ya hay 3 → NO puedes traer uno nuevo de TO DO
-- Razón: Paralelismo extremo = cambios de contexto = menor productividad
+#### 4. HACER EXPLÍCITAS LAS POLÍTICAS
+- Reglas claras sobre cómo se trabaja (los límites de WiP y la definición de Hecho son ejemplos de políticas)
 
-#### Principio 3: GESTIONAR EL FLUJO
+#### 5. IMPLEMENTAR CIRCUITOS DE RETROALIMENTACIÓN
+- Reuniones y revisiones cíclicas (**cadencias**); Kanban define siete (revisión de la estrategia, de las operaciones, de riesgos, etc.)
 
-- Monitorear **tiempo** que items tardan en ir de TO DO a DONE (**Cycle Time**)
-- Detectar **cuellos de botella** (columna que acumula tarjetas)
-- Ejemplo: Si en TESTING se acumula → problema es testeo lento
-
-#### Principio 4: HACER POLÍTICAS EXPLÍCITAS
-
-- Reglas claras: "Una tarjeta solo puede estar en DOING si está en progreso ACTUALMENTE"
-- NO dejar tareas en DOING dormidas
+#### 6. MEJORAR COLABORATIVAMENTE, EVOLUCIONAR EXPERIMENTALMENTE
+- La mejora se hace en equipo y con experimentos, usando modelos y el método científico
 
 ### Diferencia Kanban vs Scrum
 
 | Aspecto | Kanban | Scrum |
 |---------|--------|-------|
-| **Duración de ciclo** | Continuo, sin sprints | Sprints fijos (2-4 semanas) |
-| **Cambios en el ciclo** | Sí, en cualquier momento | Solo entre sprints |
-| **Roles** | Pocos, flexible | 3 definidos (PO, SM, Team) |
-| **Métricas** | Cycle time, Throughput | Velocidad (puntos/sprint) |
+| **Ciclo** | Flujo continuo, sin iteraciones fijas | Sprints de duración fija (un mes o menos) |
+| **Cambios** | En cualquier momento, respetando el WiP | No se permiten cambios que pongan en riesgo el Objetivo del Sprint |
+| **Roles** | Empieza respetando los roles actuales | Tres responsabilidades (Product Owner, Scrum Master, Developers) |
+| **Métricas** | Lead Time, tasa de entrega | Avance hacia el Objetivo del Sprint y del Producto |
 
-**Conclusión:** Kanban es MÁS flexible, Scrum es MÁS estructurado. Híbrido = "Scrumban"
+**Conclusión:** Kanban es un método evolutivo que parte de lo que ya se hace; Scrum es un marco con estructura definida (responsabilidades, eventos y artefactos).
 
-## 3.9 — TRADICIONAL VS ÁGIL
+## 3.18 — TIPOS DE PROCESO: TRADICIONAL VS ÁGIL
 
 | Aspecto | Tradicional | Ágil |
 |---------|------------|------|
@@ -1808,204 +2367,40 @@ Todo trabajo debe estar **VISIBLE** en un tablero:
 | **ROL DEL CLIENTE** | Involucrado inicio y final | Continuo |
 | **CUÁNDO USAR** | Requisitos estables, fuertes restricciones contractuales | Alta incertidumbre (típico: desarrollo web) |
 
+## 3.19 — INTRODUCCIÓN A LA EVALUACIÓN Y MEJORA DEL PROCESO
+
+**Fuentes:** Pressman, Capítulo 2 ("El proceso": madurez del proceso); planificación de la cátedra ("Introducción a enfoques de evaluación y mejora del proceso").
+
+### Por Qué Evaluar el Proceso
+
+La existencia de un proceso no garantiza que el software se entregue a tiempo ni que satisfaga las necesidades. La **evaluación del proceso** busca asegurar que cumple un conjunto de criterios básicos para una ingeniería de software exitosa, y detectar dónde mejorarlo.
+
+### El Modelo de Capacidad de Madurez (CMM / MCM) del SEI
+
+El **Software Engineering Institute (SEI)** definió un modelo que mide la efectividad global de las prácticas de ingeniería de software de una organización mediante **cinco niveles de madurez del proceso**:
+
+1. **Nivel 1 — Inicial:** el proceso es caso por caso, a veces caótico. Pocos procesos definidos; el éxito depende del esfuerzo individual.
+2. **Nivel 2 — Repetible:** procesos de gestión de proyectos para seguir coste, planificación y funcionalidad. Se repiten éxitos de proyectos similares.
+3. **Nivel 3 — Definido:** el proceso de gestión e ingeniería se documenta, estandariza e integra en un proceso de toda la organización.
+4. **Nivel 4 — Gestionado:** se recopilan medidas detalladas del proceso y de la calidad del producto; se controlan **cuantitativamente**.
+5. **Nivel 5 — Optimización:** la retroalimentación cuantitativa y las ideas innovadoras permiten la **mejora continua** del proceso.
+
+**Cada nivel incluye todas las características del anterior** (para estar en nivel 3 hay que haber alcanzado el nivel 2).
+
+Cada nivel se asocia con **áreas clave del proceso (ACP)** que deben lograrse (por ejemplo, en nivel 2: gestión de configuración del software).
+
+### Otros Enfoques de Evaluación
+
+Pressman (7ª ed.) menciona también otros enfoques de evaluación: **SCAMPI** (del SEI), **CBA IPI**, **SPICE** (ISO/IEC 15504) e **ISO 9001:2000** para software.
+
+### Conexión
+
+Conecta con la definición IEEE (**cuantificable**: sin medición no hay mejora) y con la **mejora continua** de la Unidad I.
+
 </script>
 
-<script type="text/markdown" data-unit="4" data-label="Unidad IV" data-short="Proceso Unificado" data-title="Proceso unificado - fases, flujos y workflow de requisitos">
-## 4.1 — DIFERENCIA CRÍTICA: FASES VS FLUJOS DE TRABAJO
-
-Esta es **la confusión más común** de toda la unidad, y por eso mismo la **pregunta más rentable de contestar bien**.
-
-### Concepto Fundamental
-
-**Las fases y los flujos de trabajo son DOS DIMENSIONES INDEPENDIENTES del proceso.**
-
-- **FASES** = **TIEMPO:** Dividen el calendario del proyecto
-- **FLUJOS DE TRABAJO** = **TIPO DE TRABAJO:** Dividen las clases de actividad
-
-**En CADA FASE se hace algo de TODOS los flujos de trabajo, en PROPORCIONES DISTINTAS.**
-
-```
-                      Flujos de Trabajo
-                 Req  Análisis  Diseño  Impl  Prueba
-            ┌────┬────┬────┬────┬────┐
-Inicio      │ XX │ X  │    │    │    │
-            ├────┼────┼────┼────┼────┤
-Elaboración │XXX │XXX │ XX │ XX │ X  │
-            ├────┼────┼────┼────┼────┤
-Construcción│ X  │ XX │XXX │XXX │ XX │
-            ├────┼────┼────┼────┼────┤
-Transición  │    │    │ X  │ XX │XXX │
-            └────┴────┴────┴────┴────┘
-```
-
-## 4.2 — LAS CUATRO FASES
-
-### Fase 1: INICIO (Más Corta)
-
-**Objetivo:** Establece la VIABILIDAD
-
-**Actividades:**
-- Define el alcance del sistema
-- Identifica actores y casos de uso principales (superficialmente)
-- Esboza una arquitectura candidata
-- Realiza análisis inicial de negocio
-
-**Pregunta que responde:** ¿Vale la pena hacer el proyecto?
-
-**Duración típica:** 1-2 semanas (en proyectos de 6 meses)
-
----
-
-### Fase 2: ELABORACIÓN (Crítica)
-
-**Objetivo:** Desarrolla la FACTIBILIDAD
-
-**Actividades:**
-- Recopila y refina la mayoría de requisitos (80-90% de casos de uso)
-- Desarrolla la **LÍNEA BASE DE ARQUITECTURA** (esqueleto ejecutable)
-- Implementa apenas 5-10% de funcionalidad, pero **arquitectónicamente significativa**
-
-**Detalle de gestión:** Conviene iterar mientras el equipo es pequeño (comunicación barata, cambios fáciles)
-
-**HITO IMPORTANTE:** Al final se hace la propuesta firme de costos y plazos
-
-**Punto clave:** Recién aquí se sabe lo suficiente como para comprometerse
-
-**Duración típica:** 2-3 semanas (en proyectos de 6 meses)
-
----
-
-### Fase 3: CONSTRUCCIÓN (Larga)
-
-**Objetivo:** CONSTRUYE el sistema
-
-**Actividades:**
-- Implementa el grueso de la funcionalidad
-- El equipo crece
-- Las iteraciones se vuelven más previsibles (arquitectura estabilizada)
-
-**Termina en:** CAPACIDAD OPERATIVA INICIAL (sistema en manos de usuarios, aún sin pulir)
-
-**Duración típica:** 2-3 meses (en proyectos de 6 meses)
-
----
-
-### Fase 4: TRANSICIÓN
-
-**Objetivo:** Sitúa el sistema en el entorno del usuario
-
-**Actividades:**
-- Puesta en producción
-- Migración de datos
-- Capacitación
-- Soporte inicial
-- Corrección de defectos que solo aparecen con uso real
-- Versiones beta
-
-**Punto crítico:** El sistema **DEJA DE SER PROYECTO** y se convierte en **PRODUCTO EN OPERACIÓN**
-
-**Duración típica:** 2-4 semanas (en proyectos de 6 meses)
-
----
-
-### Hitos y Criterios de Cierre
-
-**HITO PRINCIPAL:** Al final de cada fase. Punto de **decisión de negocio**:
-- ¿Continúa?
-- ¿Se reorienta?
-- ¿Se cancela?
-
-**HITO SECUNDARIO:** Al final de cada iteración. **Evalúa si se cumplieron los criterios** (definidos de antemano, no inventados al llegar)
-
-## 4.3 — PLANIFICACIÓN: DOS PLANES, NO UNO
-
-### Plan de Proyecto (Mapa Global)
-
-- Asigna tiempos a cada fase
-- Fija fechas y criterios de hitos principales
-- Establece cuántas iteraciones tendrá cada fase
-- Necesariamente **GRUESO** al principio (poco se sabe)
-- Se va **precisando** a medida que se aprende
-
----
-
-### Plan de Iteración (Detallado)
-
-- Se arma cuando la fecha de comienzo se acerca
-- **Contenido decidido por:**
-  1. Qué casos de uso completar (parcial o totalmente)
-  2. Qué riesgos técnicos mitigar
-  3. Qué cambios de requisitos o defectos absorber
-  4. Qué subsistemas implementar (total o parcial)
-
----
-
-### Regla Práctica
-
-- **Plan de iteración actual** = COMPLETAMENTE detallado
-- **Plan de siguiente** = A MEDIO detallar
-- **Planes posteriores** = Apenas ESBOZADOS
-
-**Razón:** Planificar en detalle 8 meses adelante es desperdiciar trabajo (habremos aprendido cosas que invalidan ese detalle)
-
-## 4.4 — LOS CINCO FLUJOS DE TRABAJO FUNDAMENTALES
-
-Se REPITEN EN CADA ITERACIÓN, EN TODAS LAS FASES. **Lo que cambia es la PROPORCIÓN de esfuerzo.**
-
-El gráfico de las "jorobas superpuestas" lo muestra:
-- Eje horizontal = tiempo (fases e iteraciones)
-- Cada curva = esfuerzo en cada flujo
-
-### Lectura Correcta
-
-```
-Esfuerzo
-    │
-    │    ╱╲
- R  │   ╱  ╲___
- e  │  ╱
- q  │ ╱
-    │___
-    │    ╱╲
-    │   ╱  ╲___
- A  │  ╱    Análisis
- n  │ ╱
-    │___
-    │         ╱╲
-    │        ╱  ╲__
- D  │       ╱   Diseño
- i  │      ╱
-    │_____╱
-    │            ╱╲
-    │           ╱  ╲
- I  │          ╱   Impl
- m  │         ╱
-    │________╱
-    │                ╱╲
-    │               ╱  ╲
- P  │              ╱   Prueba
- r  │             ╱
-    │____________╱
-    └─────────────────────────
-      I  E  C  T
-     Fases
-```
-
-**Observaciones:**
-1. REQUISITOS: Alta al principio, decrece pero **nunca llega a cero** (se refinan a lo largo)
-2. ANÁLISIS Y DISEÑO: Pico en elaboración
-3. IMPLEMENTACIÓN: Pico en construcción
-4. PRUEBA: **Crece sostenidamente**, máximo en final de construcción y transición, **PERO EMPIEZA DESDE ITERACIÓN 1**
-
-### Conclusión Crítica
-
-**En el Proceso Unificado NO existe "la etapa de pruebas".**
-
-Se prueba desde la primera iteración. **Lo que existe es una FASE donde el esfuerzo de prueba es MÁXIMO.**
-
-**Esa distinción entre "etapa" y "proporción de esfuerzo" es exactamente lo que separa iterativo de cascada disfrazada.**
-
-## 4.5 — TRABAJADORES, ACTIVIDADES Y ARTEFACTOS
+<script type="text/markdown" data-unit="4" data-label="Unidad IV" data-short="Workflow de requisitos" data-title="Proceso unificado de desarrollo de software - workflow de requisitos">
+## 4.1 — TRABAJADORES, ACTIVIDADES Y ARTEFACTOS
 
 Vocabulario de tres piezas:
 
@@ -2039,92 +2434,211 @@ Un **PRODUCTO del proceso**:
 - Componente
 - Caso de prueba
 
-## 4.6 — PRIMER PILAR: DIRIGIDO POR CASOS DE USO
+## 4.2 — EL FLUJO DE TRABAJO DE REQUISITOS: CONCEPTO E IMPORTANCIA
 
-Un caso de uso describe una **porción de funcionalidad** que le da un **valor observable** a un **ACTOR** (usuario o sistema externo).
+**Fuente:** Jacobson, Booch y Rumbaugh, *El Proceso Unificado de Desarrollo de Software*, Capítulo 6 ("Captura de requisitos: de la visión a los requisitos").
 
-### LA AFIRMACIÓN FUERTE
+### Concepto
 
-Los casos de uso **NO son solamente una técnica para capturar requisitos**: son el **HILO CONDUCTOR de TODO el proyecto**.
+El **flujo de trabajo de requisitos** es el trabajo de **capturar los requisitos**: descubrir y describir lo que el sistema debe hacer, guiando el desarrollo hacia el **sistema correcto**.
 
-### CÓMO FUNCIONA LA CADENA
+### Importancia
+
+- La captura de requisitos es **complicada**: los usuarios no suelen saber con precisión qué necesitan, y los requisitos parten de puntos muy distintos (desde una vaga noción hasta una especificación detallada)
+- Su **objeto** es describir los requisitos del sistema con suficiente claridad como para que **clientes, usuarios y desarrolladores lleguen a un acuerdo** sobre qué debe hacer el sistema
+- Los requisitos se describen en el **lenguaje del cliente**
+
+### Los Pasos del Flujo de Trabajo
+
+Aparte de las diferencias en los puntos de partida, en la mayoría de los casos se siguen estos pasos (no necesariamente por separado):
+
+1. **Enumerar los requisitos candidatos**
+2. **Comprender el contexto del sistema**
+3. **Capturar requisitos funcionales**
+4. **Capturar requisitos no funcionales**
+
+### El Papel de los Requisitos en el Ciclo de Vida
+
+- El trabajo de requisitos se hace **fundamentalmente durante el inicio y la elaboración**
+- **Inicio:** se identifica la mayoría de los casos de uso y se detallan los más importantes (menos del 10%)
+- **Elaboración:** se captura la mayoría de los requisitos restantes (sobre un 80%)
+- **Construcción:** se capturan los restantes
+- **Transición:** casi no hay captura de requisitos
+
+## 4.3 — ARTEFACTOS DEL FLUJO DE REQUISITOS
+
+**Fuente:** Jacobson, Booch y Rumbaugh, Capítulos 6 y 7.
+
+### Artefactos del Capítulo 6 (Contexto y Candidatos)
+
+#### LISTA DE CARACTERÍSTICAS
+- Reúne las **buenas ideas** de clientes, usuarios, analistas y desarrolladores, antes de que se conviertan en requisitos
+- Se usa **solo para la planificación** del trabajo
+- Cada característica tiene un **nombre corto**, una **breve explicación** y **valores de planificación**:
+  - **Estado:** propuesto, aprobado, incluido o validado
+  - **Coste estimado** de implementación (tipos de recursos y horas-persona)
+  - **Prioridad:** crítico, importante o secundario
+  - **Nivel de riesgo:** crítico, significativo u ordinario
+
+#### MODELO DEL DOMINIO
+- Captura los tipos más importantes de **objetos en el contexto del sistema** ("cosas" que existen o eventos que suceden)
+- Ayuda a construir un **glosario** de términos
+
+#### MODELO DEL NEGOCIO
+- Describe los **procesos de negocio** (existentes o percibidos) para comprenderlos
+- Es un **supraconjunto** del modelo del dominio (incluye más que solo los objetos del dominio)
+
+#### REQUISITOS ADICIONALES
+- Requisitos **no funcionales genéricos** que no pueden relacionarse con un caso de uso concreto ni con una clase concreta del mundo real (por ejemplo, plataforma, legales, rendimiento global)
+- Los no funcionales **específicos de un caso de uso** se describen en ese caso de uso (requisitos especiales)
+
+### Artefactos del Capítulo 7 (Captura como Casos de Uso)
+
+1. **Modelo de casos de uso:** contiene actores, casos de uso y sus relaciones; representa los requisitos funcionales
+2. **Actor:** cada tipo de usuario o sistema externo que interactúa con el sistema
+3. **Caso de uso:** cada forma en que los actores usan el sistema
+4. **Descripción de la arquitectura (vista del modelo de casos de uso):** muestra los casos de uso **arquitectónicamente significativos**
+5. **Glosario:** define los términos comunes; evita que una misma palabra signifique cosas distintas
+6. **Prototipo de interfaz de usuario:** ayuda a comprender y especificar las interacciones entre actores y sistema
+
+## 4.4 — TRABAJADORES DEL FLUJO DE REQUISITOS
+
+**Fuente:** Jacobson, Booch y Rumbaugh, Capítulo 7 (7.3 "Trabajadores").
+
+Los trabajadores **no son personas**: son **puestos (roles)** con responsabilidades. Una persona puede desempeñar varios, y varios pueden ser desempeñados por un grupo.
+
+### Los Cuatro Trabajadores del Flujo de Requisitos
+
+1. **ANALISTA DEL SISTEMA**
+   - Responsable del **conjunto completo de requisitos** modelados como casos de uso
+   - Delimita el sistema: **encuentra los actores y los casos de uso**
+   - Asegura que el modelo de casos de uso sea completo y consistente
+   - Es responsable del **glosario**
+   - Estructura el modelo de casos de uso
+2. **ESPECIFICADOR DE CASOS DE USO**
+   - **Detalla** uno o más casos de uso (el analista no puede detallar todos solo)
+   - Trabaja estrechamente con los usuarios reales de sus casos de uso
+3. **DISEÑADOR DE INTERFACES DE USUARIO**
+   - Da **forma visual** a las interfaces de usuario
+   - Construye los **prototipos de interfaz** para algunos casos de uso
+4. **ARQUITECTO**
+   - Describe la **vista de la arquitectura del modelo de casos de uso**
+   - **Prioriza** los casos de uso (identifica los arquitectónicamente significativos)
+
+**Punto clave para examen:** el "ingeniero de casos de uso" y el "ingeniero de componentes" son trabajadores de los flujos de **análisis y diseño**, no del flujo de requisitos.
+
+## 4.5 — ACTIVIDADES DEL FLUJO DE REQUISITOS
+
+**Fuente:** Jacobson, Booch y Rumbaugh, Capítulo 7 (7.4 "Flujo de trabajo").
+
+### Las Cinco Actividades y Quién las Realiza
+
+| Actividad | Trabajador responsable |
+|-----------|------------------------|
+| **Encontrar actores y casos de uso** | Analista de sistemas |
+| **Priorizar casos de uso** | Arquitecto |
+| **Detallar un caso de uso** | Especificador de casos de uso |
+| **Prototipar la interfaz de usuario** | Diseñador de interfaces de usuario |
+| **Estructurar el modelo de casos de uso** | Analista de sistemas |
+
+### Cómo Fluyen
+
+1. El **analista de sistemas** ejecuta *Encontrar actores y casos de uso* para una primera versión del modelo, usando como entrada la **lista de características** y el **modelo del dominio o del negocio**
+2. El **arquitecto** identifica los casos de uso **arquitectónicamente relevantes** para la priorización
+3. Los **especificadores** describen en detalle los casos de uso priorizados
+4. En paralelo, los **diseñadores de interfaz** sugieren interfaces adecuadas para cada actor
+5. El **analista** reestructura el modelo (por ejemplo, definiendo generalizaciones) en *Estructurar el modelo de casos de uso*
+
+Las actividades **no son una secuencia estricta**: pueden retomarse muchas veces y cada una puede producir solo una fracción de su resultado.
+
+### Actividad: Encontrar Actores y Casos de Uso
+
+- Encontrar los actores
+- Encontrar los casos de uso
+- Describir brevemente cada caso de uso
+- Describir el modelo de casos de uso completo (incluye preparar un glosario)
+
+### Actividad: Detallar un Caso de Uso
+
+**Pasos para detallar:**
+
+1. Elegir un **camino básico completo** (el "normal", el que el usuario percibe como más habitual y aporta el valor más obvio)
+2. Describirlo en una sección propia
+3. Describir los **caminos alternativos** como desviaciones del básico
+
+**Elementos mínimos de la descripción:**
+
+- **Precondición:** estado inicial
+- Cómo y cuándo comienza
+- Orden de las acciones (numeradas)
+- Cómo y cuándo termina
+- **Postcondición:** posibles estados finales
+- Caminos no permitidos
+- Caminos alternativos
+- **Requisitos especiales:** no funcionales propios de ese caso de uso
+
+#### EJEMPLO: Caso de Uso "Pagar Factura"
 
 ```
-1. Modelo de casos de uso
-         ↓
-2. Modelos de análisis (cada caso de uso se realiza mediante
-   una colaboración de clases de análisis)
-         ↓
-3. Modelos de diseño (cada caso de uso se realiza mediante
-   una colaboración de clases de diseño y subsistemas)
-         ↓
-4. Implementación (componentes que realizan esas clases)
-         ↓
-5. Pruebas (casos de prueba derivados de casos de uso)
+Precondición: Comprador ha recibido bienes y al menos una factura
+
+Flujo Básico:
+  1. Comprador invoca operación para hojear facturas
+  2. Sistema verifica consistencia con confirmaciones de pedido
+  3. Comprador planifica factura para pagar por banco
+  4. Sistema genera petición de pago
+  5. Si hay dinero suficiente, realiza pago
+     (usando caso de uso abstracto "Realizar Transacción")
+  6. Notifica a comprador y vendedor
+
+Caminos Alternativos:
+  - En paso 3: Comprador puede rechazar factura
+  - En paso 5: Si no hay dinero, cancela pago
+
+Postcondición: Factura pagada o pago cancelado
+
+Requisitos Especiales:
+  - El pago debe procesarse en menos de 1 segundo en el 90% de los casos
 ```
 
-### TRAZABILIDAD
+### Actividad: Prototipar la Interfaz de Usuario
 
-Cuando un requisito cambia, se puede rastrear:
-- **QUÉ CASOS DE USO** afecta
-- Desde ahí, **QUÉ CLASES** tienen que cambiar
-- **QUÉ COMPONENTES** hay que reescribir
-- **QUÉ PRUEBAS** hay que actualizar
+- Se diseña la interfaz lógica (qué elementos necesita cada actor) y luego la física
+- Se construyen prototipos para validar con los usuarios
 
-Esa cadena se llama **TRAZABILIDAD** y es **UNA DE LAS RAZONES MÁS FUERTES** para adoptar el enfoque.
+### Actividad: Estructurar el Modelo de Casos de Uso
 
----
+- Se extraen descripciones de funcionalidad **generales y compartidas** (generalización, inclusión)
+- Se extraen descripciones **opcionales o adicionales** (extensión)
 
-### LOS CASOS DE USO CUMPLEN TRES FUNCIONES
+## 4.6 — EL MODELO DE REQUERIMIENTOS
 
-1. **Capturar los requisitos** que aportan valor añadido
-   - Evita que el equipo construya funcionalidad que nadie pidió
+**Fuente:** Jacobson, Booch y Rumbaugh, Capítulo 6 (Figura 6.1).
 
-2. **Dirigir el proceso**
-   - La trazabilidad que acabamos de describir
+### El Conjunto de Requisitos
 
-3. **Idear la arquitectura**
-   - Nos lleva directamente al segundo pilar
+Para capturar requisitos de manera eficaz, los analistas necesitan un conjunto de artefactos al que Jacobson llama **conjunto de requisitos**. Reemplaza a la especificación de requisitos tradicional.
 
-## 4.7 — SEGUNDO PILAR: CENTRADO EN LA ARQUITECTURA
+| Trabajo a realizar | Artefactos resultantes |
+|--------------------|------------------------|
+| Enumerar requisitos candidatos | **Lista de características** |
+| Comprender el contexto del sistema | **Modelo del dominio o del negocio** |
+| Capturar los requisitos funcionales | **Modelo de casos de uso** |
+| Capturar los requisitos no funcionales | **Requisitos adicionales** o casos de uso concretos (requisitos especiales) |
 
-La **arquitectura** es la **DECISIÓN ESTRATÉGICA de alto nivel** sobre la estructura del sistema.
+- El **modelo de casos de uso** y los **requisitos adicionales** juntos definen una **especificación de requisitos tradicional**
+- Se completan con el **glosario** y los **prototipos de interfaz de usuario** (Capítulo 7)
 
-Es como el "plano" del edificio software.
+### Por Qué es un Modelo "Vivo"
 
-### PUNTO CLAVE
+Los requisitos **cambian constantemente**: cada iteración refleja algún cambio en el conjunto de requisitos. El número de cambios disminuye a medida que avanza la construcción y los requisitos se estabilizan.
 
-La mayoría de los casos de uso **IMPACTAN ARQUITECTURA**.
-
-Una arquitectura sólida:
-- Facilita la trazabilidad
-- Permite dividir el trabajo entre equipos
-- Reduce los riesgos de integración
-- Facilita el mantenimiento futuro
-
----
-
-### FRASE ORO (Resume el Rol del Arquitecto)
-
-"El objetivo de la arquitectura de un sistema es encontrar el conjunto **MÍNIMO de colaboraciones BIEN ESTRUCTURADAS** que satisfacen el **flujo de eventos especificado en TODOS los casos de uso** del sistema"
-
-**Leyendo esa frase:**
-- "Conjunto mínimo" → la arquitectura no debe tener piezas de más
-- "Bien estructuradas" → calidad interna de cada colaboración
-- "Que satisfacen el flujo de eventos de todos los casos de uso" → **LA FUNCIÓN MANDA:** una arquitectura elegante que no soporta los casos de uso no sirve
-
----
-
-### RESPUESTA A "¿POR QUÉ LOS CASOS DE USO GUÍAN Y LA ARQUITECTURA CONDUCE?"
-
-**Esta frase es la mejor respuesta posible para un examen oral:**
-
-**Los casos de uso especifican QUÉ debe hacer el sistema (el requisito funcional sin comprometerse con HOW se implementa).** La arquitectura es el conjunto mínimo de colaboraciones bien estructuradas que satisfacen ese QUÉ. Así, el orden es: primero entender QUÉ (casos de uso), luego decidir CÓMO estructura general (arquitectura), luego CÓMO detalles (diseño), luego materializar (código).
+**Base sobre la que se apoyan después el análisis y el diseño.**
 
 </script>
 
-<script type="text/markdown" data-unit="5" data-label="Unidad V" data-short="Requerimientos" data-title="Ingeniería de requerimientos y workflow detallado">
-## 5.1 — EL CONCEPTO DE REQUERIMIENTO
+<script type="text/markdown" data-unit="5" data-label="Unidad V" data-short="Requerimientos" data-title="Ingeniería de requerimientos">
+## 5.1 — REQUERIMIENTOS: CONCEPTO, CLASIFICACIÓN Y TIPOS
 
 ### Definición
 
@@ -2185,7 +2699,7 @@ Condición o capacidad que un **SISTEMA debe cumplir** para:
 - Base del contrato
 - "El system debe exponer API REST en port 8080 que retorna JSON con campos..."
 
-## 5.2 — PROPÓSITO DE LA INGENIERÍA DE REQUERIMIENTOS
+## 5.2 — INGENIERÍA DE REQUERIMIENTOS: PROPÓSITO
 
 ### Objetivo Último
 
@@ -2195,7 +2709,7 @@ Reducir al **MÍNIMO el riesgo de CONSTRUIR EL SISTEMA EQUIVOCADO**.
 
 La mayoría de proyectos que fracasan lo hacen **NO por errores de programación** sino por **COMPRENSIÓN DEFICIENTE** de lo que había que construir.
 
-## 5.3 — LOS CINCO PROCESOS DE INGENIERÍA DE REQUERIMIENTOS
+## 5.3 — LOS PROCESOS DE LA INGENIERÍA DE REQUERIMIENTOS
 
 ### 1. ELICITACIÓN (Sacar)
 
@@ -2237,6 +2751,22 @@ La mayoría de proyectos que fracasan lo hacen **NO por errores de programación
 - Gestiona cambios en requisitos a lo largo del proyecto
 - Manteniendo trazabilidad
 - **Crítico:** Los requisitos NO son congelados, evolucionan
+
+### La Administración en Detalle
+
+Gestionar cambios en requisitos a lo largo del proyecto.
+
+#### PUNTO CRÍTICO
+
+Los requisitos **NO se congelan** después de captura.
+
+Se refinan, mejoran, a veces cambian completamente a medida que el proyecto avanza y se aprende.
+
+La administración consiste en:
+- Registrar cambios solicitados
+- Evaluar impacto (cuánto cuesta implementar)
+- Decidir si entra en próxima iteración o se aplaza
+- Mantener trazabilidad de qué versión implementa qué requisito
 
 ## 5.4 — LA ELICITACIÓN: TÉCNICAS
 
@@ -2291,7 +2821,7 @@ La mayoría de proyectos que fracasan lo hacen **NO por errores de programación
 - **Ventaja:** Información ya existe
 - **Desventaja:** Puede estar desactualizada
 
-## 5.5 — ESPECIFICACIÓN Y EL DOCUMENTO ERS
+## 5.5 — ESPECIFICACIÓN DE REQUERIMIENTOS FUNCIONALES Y NO FUNCIONALES
 
 ### ESPECIFICAR
 
@@ -2314,393 +2844,7 @@ Redactar de forma **CLARA, PRECISA, VERIFICABLE** en documento que sirva de refe
 
 ---
 
-### DOCUMENTO ERS (Especificación de Requerimientos del Software)
-
-- **Artefacto formal** que reúne TODOS los requisitos acordados
-- **Standard IEEE 830** o directamente **MODELO DE CASOS DE USO** (en PU)
-
----
-
-### Un Buen ERS Debe Ser
-
-#### COMPLETO
-- Cubre todos requisitos relevantes
-- Nada importante falta
-
-#### CONSISTENTE
-- Sin contradicciones
-- Un requisito no contradice otro
-
-#### NO AMBIGUO
-- Una única interpretación por requisito
-- Evita palabras vagas
-
-#### VERIFICABLE
-- Forma objetiva de comprobar cumplimiento
-- "Fácil" es no verificable; "<2 segundos" sí
-
-#### TRAZABLE
-- Vincula a origen (quién pidió, por qué)
-- Vincula a artefactos que lo implementan (qué clases, qué componentes, qué pruebas)
-
-#### MODIFICABLE
-- Estructura que permite cambios sin perder coherencia
-- Cambiar un requisito no requiere reescribir todo
-
-## 5.6 — VALIDACIÓN
-
-### Concepto
-
-Verificar que especificación refleja **lo que cliente necesita** ANTES de diseño/implementación.
-
-### PUNTO CRÍTICO
-
-Costo de corregir error **CRECE CON EL TIEMPO:**
-- Requisito mal entendido en elicitación = minutos de corrección
-- Mismo error en pruebas del sistema = rediseño/reimplementación (horas/días)
-- Mismo error después de entrega = catastrófico (clientes enojados, datos a migrar)
-
----
-
-### TÉCNICAS
-
-#### 1. REVISIONES
-- Formales e informales
-- Con múltiples interesados
-- Leyendo la especificación juntos
-
----
-
-#### 2. CASOS DE PRUEBA A PARTIR DE REQUISITOS
-- Si es difícil imaginar prueba razonable para un requisito, el requisito está mal especificado
-- Un requisito que no se puede probar no se puede verificar
-
----
-
-#### 3. PROTOTIPOS DE INTERFAZ
-- **La herramienta más potente**
-- Detecta malentendidos ANTES de construir interfaz real
-- Usuario viendo pantalla entiende rápido qué se espera
-
----
-
-### ANÁLISIS DE CONSISTENCIA ENTRE MODELOS
-
-- **Modelo de Casos de Uso vs Glosario:** ¿Términos consistentes?
-- **Glosario vs Modelo de Dominio:** ¿Objetos mencionados existen con atributos que descripciones suponen?
-- **Prototipos vs Flujos de casos de uso:** ¿Interfaz refleja fielmente los pasos?
-
-## 5.7 — ADMINISTRACIÓN
-
-Gestionar cambios en requisitos a lo largo del proyecto.
-
-### PUNTO CRÍTICO
-
-Los requisitos **NO se congelan** después de captura.
-
-Se refinan, mejoran, a veces cambian completamente a medida que el proyecto avanza y se aprende.
-
-La administración consiste en:
-- Registrar cambios solicitados
-- Evaluar impacto (cuánto cuesta implementar)
-- Decidir si entra en próxima iteración o se aplaza
-- Mantener trazabilidad de qué versión implementa qué requisito
-
-## 5.8 — REQUISITOS EN ENFOQUES ÁGILES: USER STORIES Y ESTIMACIÓN
-
-### USER STORY (Historia de Usuario)
-
-Forma mucho más **LIVIANA** que caso de uso completo, pensada para caber en tarjeta y servir de **DISPARADOR DE CONVERSACIÓN** (no especificación exhaustiva).
-
-#### FORMATO
-
-```
-Como [tipo de usuario],
-quiero [una acción]
-para [obtener un beneficio]
-```
-
-**Ejemplo:**
-```
-Como comprador,
-quiero pagar una factura desde el sistema
-para no tener que hacer transferencia manual en banco
-```
-
-#### Describe la MISMA necesidad que caso de uso "Pagar Factura"
-Pero con **MUCHO menos formalismo**.
-
-#### SE COMPLETA CON: CRITERIOS DE ACEPTACIÓN
-
-Condiciones verificables que deben cumplirse para dar por terminada.
-
-Análogo a postcondición de caso de uso.
-
-**Ejemplo:**
-```
-Criterios de Aceptación:
-- El sistema muestra la lista de facturas pendientes
-- El usuario puede seleccionar una factura
-- El sistema realiza el pago en menos de 2 segundos
-- Se envía confirmación por email
-```
-
----
-
-### ESTIMACIÓN EN ÁGIL
-
-**NO se anticipa tiempo/costo en unidades absolutas** como planificación tradicional.
-
-Se estima **TAMAÑO RELATIVO** con unidad abstracta: **PUNTOS DE HISTORIA** (Story Points).
-
-**Combinan:**
-- Complejidad
-- Volumen de trabajo
-- Riesgo percibido
-
-Se compara contra historias ya estimadas.
-
-#### PLANNING POKER (Técnica de Estimación Colaborativa)
-
-1. Cada integrante estima **independiente y simultáneamente** (evita sesgo de anclaje)
-2. Equipo **discute** hasta **consenso**
-3. Con el tiempo: **calcular VELOCIDAD** (puntos/Sprint) para planificación más realista
-
-## 5.9 — CASOS DE USO 2.0
-
-Guía de Ivar Jacobson (uno de autores del PU y UML) con Ian Spence y Kurt Bittner.
-
-### OBJETIVO
-
-Adaptar y aligerar técnica de casos de uso para contextos iterativos e incluso ágiles **sin perder fortalezas centrales.**
-
-### IDEAS CENTRALES
-
-1. Usar casos de uso **también en proyectos ágiles**
-2. Trabajar con **REBANADAS de caso de uso** (desarrollar y entregar porción concreta primero, no esperar completarlo)
-3. Organizar trabajo alrededor de **pequeño conjunto de casos de uso esenciales** (similar a cómo PU prioriza casos arquitectónicamente significativos)
-
-### RESULTADO
-
-Punto de encuentro entre **tradición formal de casos de uso** y **filosofía ágil de entrega incremental**.
-
-Ambas comparten preocupación por **capturar y priorizar lo que realmente aporta valor a usuario**.
-
-## 5.10 — EL WORKFLOW DE REQUISITOS EN DETALLE (PROCESO UNIFICADO)
-
-### Actividades del Workflow
-
-#### ACTIVIDAD 1: SÍNTESIS DE REQUERIMIENTOS
-
-**Actor:** Ingeniero de Casos de Uso
-
-**Objetivo:** Recopilar información de múltiples fuentes
-
-**Acciones:**
-- Entrevistas con stakeholders
-- Revisión de documentación
-- Observación de procesos actuales
-- Análisis de sistemas heredados
-
-**Produce:** Lista de características candidatas, resumen de necesidades
-
----
-
-#### ACTIVIDAD 2: CONSTRUIR MODELO DE CASOS DE USO
-
-**Actor:** Ingeniero de Casos de Uso, Arquitecto
-
-**Objetivo:** Estructura funcional del sistema
-
-**Acciones:**
-1. Identificar actores (quiénes interactúan con el sistema)
-2. Identificar casos de uso (qué funcionalidades)
-3. Establecer relaciones entre actores y casos de uso
-4. Documentar cada caso de uso (flujo básico y alternados)
-
-**Produce:** Diagrama de casos de uso, descripciones de casos de uso
-
----
-
-#### ACTIVIDAD 3: ESPECIFICAR REQUISITOS NO FUNCIONALES
-
-**Actor:** Arquitecto, Analista
-
-**Objetivo:** Documentar atributos de calidad, restricciones, etc.
-
-**Acciones:**
-- Definir rendimiento esperado
-- Definir restricciones de tecnología
-- Definir requisitos legales/regulatorios
-- Definir disponibilidad requerida
-- Definir seguridad
-
-**Produce:** Documento de requisitos no funcionales
-
----
-
-#### ACTIVIDAD 4: CREAR PROTOTIPOS DE INTERFAZ
-
-**Actor:** Diseñador de Interfaz, Ingeniero de Casos de Uso
-
-**Objetivo:** Validar con usuarios que se entiende correctamente
-
-**Acciones:**
-- Diseñar pantallas principales
-- Mostrar a usuarios
-- Recolectar retroalimentación
-- Refinar basado en feedback
-
-**Produce:** Prototipos de interfaz de usuario
-
----
-
-#### ACTIVIDAD 5: INSPECCIONAR REQUERIMIENTOS
-
-**Actor:** Equipo de Revisión (incluye QA)
-
-**Objetivo:** Encontrar problemas ANTES de diseño
-
-**Acciones:**
-- Revisar completitud (¿Falta algo?)
-- Revisar consistencia (¿Hay contradicciones?)
-- Revisar ambigüedad (¿Se entiende igual todos?)
-- Revisar verificabilidad (¿Se puede probar?)
-
-**Produce:** Reporte de revisión, lista de defectos
-
----
-
-### Artefactos del Workflow de Requisitos
-
-#### 1. LISTA DE CARACTERÍSTICAS
-
-- Reúne buenas ideas de clientes, usuarios, analistas, desarrolladores
-- Antes de que se conviertan en requisitos formales
-- Se usa para planificar iteraciones
-
-**Atributos:**
-- Nombre corto
-- Explicación breve
-- Estado (propuesta/aprobada/incluida/validada)
-- Costo estimado
-- Prioridad
-- Nivel de riesgo
-
----
-
-#### 2. MODELO DE CASOS DE USO (Principal)
-
-- Representa requisitos funcionales
-- Compuesto por actores y casos de uso
-- El diagrama muestra relaciones
-
----
-
-#### 3. DESCRIPCIÓN DE LA ARQUITECTURA (Vista de Casos de Uso)
-
-- Identifica qué casos de uso son ARQUITECTÓNICAMENTE SIGNIFICATIVOS
-- Aquellos que guían el diseño de la arquitectura
-
----
-
-#### 4. GLOSARIO
-
-- Fija vocabulario común
-- Evita que la misma palabra signifique dos cosas en dos documentos
-- **Crítico para comunicación** entre cliente y equipo
-
----
-
-#### 5. PROTOTIPO DE INTERFAZ DE USUARIO
-
-- Valida con usuarios lo que descripciones textuales no pueden transmitir
-- La herramienta más potente de validación
-
----
-
-#### 6. LISTA DE REQUISITOS ADICIONALES
-
-- Requisitos no funcionales
-- Restricciones de plataforma
-- Requisitos legales
-- TODO lo que no encaja naturalmente en un caso de uso
-
-**Importancia:** Si todo fuera caso de uso, quedarían afuera cosas críticas:
-- 500 usuarios concurrentes
-- Normativa de datos
-- Plataforma específica
-
----
-
-### Estructura Detallada de un Caso de Uso
-
-**PASOS PARA DETALLAR:**
-
-1. Elegir un **CAMINO BÁSICO COMPLETO** (el camino "normal", el que el usuario percibe más habitual, el que aporta valor más obvio)
-
-2. Describirlo en una sección propia
-
-3. Después, describir los **CAMINOS ALTERNATIVOS** como desviaciones del básico
-
-**ELEMENTOS MÍNIMOS:**
-
-- **PRECONDICIÓN:** Estado inicial
-- Cómo y cuándo comienza
-- Orden de acciones (numeradas)
-- Cómo y cuándo termina
-- **POSTCONDICIÓN:** Posibles estados finales
-- Caminos no permitidos
-- Caminos alternativos
-- **REQUISITOS ESPECIALES:** No funcionales propios de ese caso de uso
-
-**PUNTO CLAVE:** La técnica de flujo básico + alternativos es para no perderse en la complejidad de todos los caminos posibles.
-
-#### EJEMPLO: Caso de Uso "Pagar Factura"
-
-```
-Precondición: Comprador ha recibido bienes y al menos una factura
-
-Flujo Básico:
-  1. Comprador invoca operación para hojear facturas
-  2. Sistema verifica consistencia con confirmaciones de pedido
-  3. Comprador planifica factura para pagar por banco
-  4. Sistema genera petición de pago
-  5. Si hay dinero suficiente, realiza pago
-     (usando caso de uso abstracto "Realizar Transacción")
-  6. Notifica a comprador y vendedor
-
-Caminos Alternativos:
-  - En paso 3: Comprador puede rechazar factura
-  - En paso 5: Si no hay dinero, cancela pago
-
-Postcondición: Factura pagada o pago cancelado
-
-Requisitos Especiales:
-  - El pago debe procesarse en menos de 2 segundos
-  - Debe mantener registro de auditoría
-```
-
----
-
-### El Modelo de Requerimientos: Síntesis
-
-**TABLA SÍNTESIS:**
-
-| ACTIVIDAD | ARTEFACTO |
-|-----------|-----------|
-| Enumerar requisitos candidatos | LISTA DE CARACTERÍSTICAS |
-| Entender contexto del sistema | MODELO DE DOMINIO o MODELO DE NEGOCIO |
-| Capturar requisitos funcionales | MODELO DE CASOS DE USO |
-| Capturar requisitos no funcionales | LISTA DE REQUISITOS ADICIONALES |
-| Validar con usuarios | PROTOTIPOS DE INTERFAZ |
-| Vocabulario común | GLOSARIO |
-
-El conjunto de **TODOS estos artefactos** = **MODELO DE REQUERIMIENTOS COMPLETO**
-
-Base sobre la que se apoyan después análisis y diseño.
-
-## 5.11 — CASOS DE USO EN UML
+## 5.6 — MODELO DE CASOS DE USO: DIAGRAMA Y DESCRIPCIONES
 
 ### Precisión Importante
 
@@ -2804,7 +2948,195 @@ Por eso las pruebas se multiplican tan rápido y por eso hay que priorizar tambi
 
 "El objetivo de la arquitectura de un sistema es encontrar el conjunto **MÍNIMO de colaboraciones BIEN ESTRUCTURADAS** que satisfacen el **flujo de eventos especificado en TODOS los casos de uso del sistema**"
 
-## 5.12 — ANÁLISIS DE CONSISTENCIA ENTRE MODELOS (Detalle)
+## 5.7 — CASOS DE USO 2.0
+
+Guía de Ivar Jacobson (uno de autores del PU y UML) con Ian Spence y Kurt Bittner.
+
+### OBJETIVO
+
+Adaptar y aligerar técnica de casos de uso para contextos iterativos e incluso ágiles **sin perder fortalezas centrales.**
+
+### IDEAS CENTRALES
+
+1. Usar casos de uso **también en proyectos ágiles**
+2. Trabajar con **REBANADAS de caso de uso** (desarrollar y entregar porción concreta primero, no esperar completarlo)
+3. Organizar trabajo alrededor de **pequeño conjunto de casos de uso esenciales** (similar a cómo PU prioriza casos arquitectónicamente significativos)
+
+### RESULTADO
+
+Punto de encuentro entre **tradición formal de casos de uso** y **filosofía ágil de entrega incremental**.
+
+Ambas comparten preocupación por **capturar y priorizar lo que realmente aporta valor a usuario**.
+
+## 5.8 — EL MODELO DEL DOMINIO DEL PROBLEMA Y SU RELACIÓN CON LOS REQUERIMIENTOS
+
+**Fuentes:** Jacobson, Booch y Rumbaugh, Capítulo 6 (6.5 "La comprensión del contexto del sistema mediante un modelo del dominio"); planificación de la cátedra.
+
+### Qué Aporta el Modelo del Dominio a los Requerimientos
+
+- Captura los **tipos más importantes de objetos** del contexto del sistema: las "cosas" que existen o los eventos que suceden en el entorno
+- Los objetos del dominio se obtienen de la **especificación de requisitos** o de **entrevistas con los expertos** del dominio
+- Permite construir un **glosario** para que todos los que trabajan en el sistema se comuniquen mejor
+- Más adelante, ayuda a identificar **clases** durante el análisis y el diseño
+
+### Cómo se Relaciona con los Requerimientos
+
+- Los **casos de uso** mencionan conceptos del dominio (Factura, Pedido, Cuenta): esos conceptos deben existir en el modelo del dominio con los atributos que las descripciones suponen
+- Algunos **requisitos no funcionales** hacen referencia a objetos del mundo real (por ejemplo, las cuentas de un sistema bancario) y pueden capturarse en el objeto del dominio correspondiente
+- Esta relación es la base del **análisis de consistencia entre modelos** (ver más adelante)
+
+### Las Tres Formas Típicas de las Clases del Dominio
+
+- **Objetos del negocio:** representan cosas que se manipulan en el negocio (pedidos, cuentas, contratos)
+- **Objetos del mundo real** y conceptos que el sistema debe seguir (aviones enemigos, misiles)
+- **Sucesos** que ocurrirán o han ocurrido (llegada de un avión, su salida)
+
+## 5.9 — EL DOCUMENTO DE ESPECIFICACIÓN DE REQUERIMIENTOS DEL SOFTWARE (ERS)
+
+### DOCUMENTO ERS (Especificación de Requerimientos del Software)
+
+- **Artefacto formal** que reúne TODOS los requisitos acordados
+- **Standard IEEE 830** o directamente **MODELO DE CASOS DE USO** (en PU)
+
+---
+
+### Un Buen ERS Debe Ser
+
+#### COMPLETO
+- Cubre todos requisitos relevantes
+- Nada importante falta
+
+#### CONSISTENTE
+- Sin contradicciones
+- Un requisito no contradice otro
+
+#### NO AMBIGUO
+- Una única interpretación por requisito
+- Evita palabras vagas
+
+#### VERIFICABLE
+- Forma objetiva de comprobar cumplimiento
+- "Fácil" es no verificable; "<2 segundos" sí
+
+#### TRAZABLE
+- Vincula a origen (quién pidió, por qué)
+- Vincula a artefactos que lo implementan (qué clases, qué componentes, qué pruebas)
+
+#### MODIFICABLE
+- Estructura que permite cambios sin perder coherencia
+- Cambiar un requisito no requiere reescribir todo
+
+## 5.10 — LA VALIDACIÓN: PROTOTIPOS DE INTERFAZ
+
+### Concepto
+
+Verificar que especificación refleja **lo que cliente necesita** ANTES de diseño/implementación.
+
+### PUNTO CRÍTICO
+
+Costo de corregir error **CRECE CON EL TIEMPO:**
+- Requisito mal entendido en elicitación = minutos de corrección
+- Mismo error en pruebas del sistema = rediseño/reimplementación (horas/días)
+- Mismo error después de entrega = catastrófico (clientes enojados, datos a migrar)
+
+---
+
+### TÉCNICAS
+
+#### 1. REVISIONES
+- Formales e informales
+- Con múltiples interesados
+- Leyendo la especificación juntos
+
+---
+
+#### 2. CASOS DE PRUEBA A PARTIR DE REQUISITOS
+- Si es difícil imaginar prueba razonable para un requisito, el requisito está mal especificado
+- Un requisito que no se puede probar no se puede verificar
+
+---
+
+#### 3. PROTOTIPOS DE INTERFAZ
+- **La herramienta más potente**
+- Detecta malentendidos ANTES de construir interfaz real
+- Usuario viendo pantalla entiende rápido qué se espera
+
+---
+
+### ANÁLISIS DE CONSISTENCIA ENTRE MODELOS
+
+- **Modelo de Casos de Uso vs Glosario:** ¿Términos consistentes?
+- **Glosario vs Modelo de Dominio:** ¿Objetos mencionados existen con atributos que descripciones suponen?
+- **Prototipos vs Flujos de casos de uso:** ¿Interfaz refleja fielmente los pasos?
+
+## 5.11 — LAS OCHO REGLAS DE ORO DE SCHNEIDERMAN (PRESSMAN, CAPÍTULO 11)
+
+Schneiderman propone un conjunto de principios universales para el diseño de interfaces de usuario que son **independientes del sistema** pero que la Ingeniería de Requerimientos debe capturar como requisitos no funcionales.
+
+### Contexto
+
+**Objetivo:** Facilitar aprendizaje, minimizar errores, reducir tiempo de entrenamiento
+
+**Pressman las incluye en el capítulo sobre Diseño de Interfaz, pero Zanel las pide explícitamente en Validación de requisitos** porque:
+- Son **criterios verificables** para validar prototipos de interfaz
+- Son **requisitos no funcionales** que el cliente debe aceptar
+- Son **transversales**: aplican a casi cualquier sistema interactivo
+
+### Las Ocho Reglas
+
+#### 1. CONSISTENCIA
+- Acción idéntica = resultado idéntico en contextos similares
+- Vocabulario consistente (etiquetas, mensajes, colores)
+- Ejemplo: Si en una pantalla un botón verde significa "guardar", NO debe significar "eliminar" en otra
+
+#### 2. ATAJOS (Shortcuts)
+- Para usuarios frecuentes
+- Combinaciones de teclado (Ctrl+S)
+- Abreviaturas (F5 en vez de "Refrescar")
+- Menús directos
+
+#### 3. RETROALIMENTACIÓN INFORMATIVA (Informative Feedback)
+- Todo acto debe producir respuesta observable
+- **Inmediata** para acciones frecuentes/sencillas
+- **Detallada** para acciones largas/complejas
+- Ejemplo: Progress bar para descarga, sonido al guardar
+
+#### 4. CUADROS DE DIÁLOGO PARA CIERRE (Closing Dialogs)
+- Transiciones que indiquen completitud
+- Ejemplo: Wizard que cierra diciendo "Proceso completado"
+- **NO dejar user sin saber si acción se ejecutó**
+
+#### 5. PREVENCIÓN Y MANEJO DE ERRORES
+- **Prevención es mejor que manejo**: validar entrada ANTES
+- Si ocurre error: mensaje PRECISO, NO genérico
+- Ofrecer solución: "Mail inválido. Ej: usuario@domain.com"
+- **Nunca usar códigos de error (Error #4027)**
+
+#### 6. ACCIÓN REVERSIBLE (Undo)
+- Todo acto reversible DEBE poder revertirse (Undo)
+- Ejemplo: No permites hacer algo sin "Deshacer"
+- Si no es reversible, pedir confirmación ANTES
+
+#### 7. CONTROL AL USUARIO
+- Usuario es el que manda, no el sistema
+- NO debe haber operaciones forzadas
+- NO debe haber secuencias inflexibles ("wizard hell")
+- Poder cancelar/saltar pasos
+
+#### 8. REDUCIR CARGA DE MEMORIA
+- NO requerir que usuario recuerde datos de pantalla anterior
+- Mostra contexto actual siempre (breadcrumb, título)
+- Opciones visibles (NO escondidas en menús 5 niveles profundo)
+- Defaults sensatos
+
+### En el Contexto de Validación
+
+Cuando se valida prototipo de interfaz:
+1. **Revisar contra cada regla**
+2. **Documentar incumplimientos como defectos** ("Falta Undo en la operación de borrado")
+3. **Negociar con cliente** si va a cumplirse o es una excepción justificada
+
+## 5.12 — ANÁLISIS DE CONSISTENCIA ENTRE MODELOS
 
 **PUNTO CLAVE (no aparecía en el libro anterior):** Parte de validación consiste en verificar que los **modelos no se contradigan** entre sí.
 
@@ -2868,71 +3200,124 @@ Por eso las pruebas se multiplican tan rápido y por eso hay que priorizar tambi
 
 **Si falta en alguno → Inconsistencia → Defecto**
 
+## 5.13 — REQUERIMIENTOS EN AMBIENTES ÁGILES: USER STORIES Y ESTIMACIÓN
+
+### USER STORY (Historia de Usuario)
+
+Forma mucho más **LIVIANA** que caso de uso completo, pensada para caber en tarjeta y servir de **DISPARADOR DE CONVERSACIÓN** (no especificación exhaustiva).
+
+#### FORMATO
+
+```
+Como [tipo de usuario],
+quiero [una acción]
+para [obtener un beneficio]
+```
+
+**Ejemplo:**
+```
+Como comprador,
+quiero pagar una factura desde el sistema
+para no tener que hacer transferencia manual en banco
+```
+
+#### Describe la MISMA necesidad que caso de uso "Pagar Factura"
+Pero con **MUCHO menos formalismo**.
+
+#### SE COMPLETA CON: CRITERIOS DE ACEPTACIÓN
+
+Condiciones verificables que deben cumplirse para dar por terminada.
+
+Análogo a postcondición de caso de uso.
+
+**Ejemplo:**
+```
+Criterios de Aceptación:
+- El sistema muestra la lista de facturas pendientes
+- El usuario puede seleccionar una factura
+- El sistema realiza el pago en menos de 2 segundos
+- Se envía confirmación por email
+```
+
+---
+
+### ESTIMACIÓN EN ÁGIL
+
+**NO se anticipa tiempo/costo en unidades absolutas** como planificación tradicional.
+
+Se estima **TAMAÑO RELATIVO** con unidad abstracta: **PUNTOS DE HISTORIA** (Story Points).
+
+**Combinan:**
+- Complejidad
+- Volumen de trabajo
+- Riesgo percibido
+
+Se compara contra historias ya estimadas.
+
+#### PLANNING POKER (Técnica de Estimación Colaborativa)
+
+1. Cada integrante estima **independiente y simultáneamente** (evita sesgo de anclaje)
+2. Equipo **discute** hasta **consenso**
+3. Con el tiempo: **calcular VELOCIDAD** (puntos/Sprint) para planificación más realista
+
 </script>
 
 <script type="text/markdown" data-unit="6" data-label="Resumen" data-short="Puntos clave" data-title="Resumen final y puntos clave para examen">
 ## Unidad I: Introducción a la Ingeniería de Software
 
-- **Software = conjunto completo** (código + datos + config + docs)
-- **Se DESARROLLA, no manufactura**
-- **NO se desgasta pero SÍ se deteriora** (el piso sube con cambios)
-- **Atributos de calidad COMPITEN entre sí**
-- **Mantenimiento = fase más larga y cara**
-- **Ingeniería = sistemático + disciplinado + CUANTIFICABLE**
-- **Crisis = entrega tarde, costoso, incorrecto, frágil, pobre calidad**
-- **Ley de Brooks:** agregar gente a proyecto atrasado lo atrasa más
-- **Cambio tardío cuesta 50-100 veces más**
-- **Proceso = MARCO** (no checklist) que se especializa por proyecto
+- **Software = conjunto completo** (código + datos + configuración + documentación)
+- **Se DESARROLLA, no se fabrica; no se estropea, pero SÍ se deteriora; la mayoría se construye a medida**
+- **Atributos de un buen software:** mantenibilidad, confiabilidad, eficiencia, usabilidad (compiten entre sí)
+- **Crisis del software** (Pressman la llama "aflicción crónica") y sus causas en los **mitos** (gestión, cliente, desarrollador)
+- **Ingeniería = sistemático + disciplinado + CUANTIFICABLE**; capas: calidad → proceso → métodos → herramientas
+- **Retos:** heterogeneidad, entrega, confianza
+- **Involucrados** (Bentley): propietarios, usuarios, diseñadores, constructores, analistas, proveedores externos
+- **Analista de sistemas:** solucionador de problemas, puente entre negocio y tecnología
+- **Modelo:** simplificación de la realidad para comprender mejor el sistema
+- **Proceso de negocio:** tareas lógicamente relacionadas para un resultado de negocio; **reglas de negocio**; **BPMN**
+- **Reingeniería:** de negocio (RPN) y de software (6 actividades); **mejora continua** (kaizen)
 
 ## Unidad II: Paradigma Orientado a Objetos
 
-- **Abstracción:** quedarse con lo esencial según el propósito
-- **Encapsulamiento:** separar interfaz de implementación
-- **Modularidad:** cohesión fuerte, acoplamiento débil
-- **Jerarquía:** ordenación de abstracciones (herencia, agregación)
-- **Clases:** moldes; Instancias: objetos concretos
-- **Relaciones:** asociación, agregación, composición, herencia, dependencia, realización
+- **Abstracción, encapsulamiento, modularidad, jerarquía** (elementos mayores)
+- **Objeto:** estado, comportamiento, identidad. **Clase:** molde
+- **Vínculo:** relación entre objetos; **asociación:** relación entre clases
+- **Relaciones entre clases:** asociación, agregación, composición, generalización, dependencia, realización
+- **Modelo del dominio del problema** y **patrones de Coad**
+- **UML:** bloques de construcción (elementos, relaciones, diagramas), mecanismos comunes, vista 4+1
 
 ## Unidad III: Procesos de Desarrollo y Enfoques Ágiles
 
-- **Proceso = marco** que define quién hace qué, en qué orden, con qué entradas, produciendo qué resultados
-- **Cascada:** fases secuenciales, rígido
-- **Iterativo:** ciclos cortos, flexible
-- **CBSE:** reutilización de componentes
-- **Proceso Unificado** = especialización del iterativo
-- **Manifiesto Ágil:** individuos, software funcionando, colaboración, cambio
-- **Scrum:** roles (Developers, PO, SM), eventos (planning, daily, review, retro), artefactos (backlog, sprint backlog, increment)
-- **Lean:** eliminar desperdicio, aprender, decidir tarde, entregar rápido
+- **Proceso = marco** que se especializa por proyecto; actividades genéricas; modelos con ventajas y desventajas
+- **Las 4 P:** Personas, Proyecto, Producto, Proceso (+ herramientas)
+- **Proceso Unificado:** dirigido por casos de uso, centrado en la arquitectura, **iterativo e incremental**
+- **Fases (TIEMPO):** Inicio, Elaboración, Construcción, Transición. **Flujos (TIPO):** Requisitos, Análisis, Diseño, Implementación, Prueba
+- **Manifiesto Ágil**, **Scrum** (Guía 2020), **Lean**, **Kanban**
+- **Evaluación y mejora del proceso:** CMM, 5 niveles de madurez
 
-## Unidad IV: Proceso Unificado
+## Unidad IV: Workflow de Requisitos (Proceso Unificado)
 
-- **Fases (TIEMPO):** Inicio (viabilidad), Elaboración (factibilidad, línea base arq.), Construcción (funcionalidad), Transición (producción)
-- **Flujos (TIPO):** Requisitos, Análisis, Diseño, Implementación, Prueba (repiten en cada iteración)
-- **Proporción de esfuerzo:** En cada fase cambia la proporción de cada flujo, pero todos están presentes
-- **Trabajador = ROL** (no persona)
-- **Artefacto = PRODUCTO** (modelo, documento, componente)
-- **Primer Pilar:** Dirigido por Casos de Uso (hilo conductor de todo)
-- **Segundo Pilar:** Centrado en la Arquitectura (decisión estratégica de alto nivel)
+- **Trabajador = ROL**, **actividad** = unidad de trabajo, **artefacto** = producto
+- **Pasos:** enumerar candidatos, comprender el contexto, capturar funcionales, capturar no funcionales
+- **Artefactos:** lista de características, modelo del dominio/negocio, modelo de casos de uso, actor, caso de uso, descripción de la arquitectura, glosario, prototipo de interfaz, requisitos adicionales
+- **Trabajadores:** analista del sistema, especificador de casos de uso, diseñador de interfaces de usuario, arquitecto
+- **Actividades:** encontrar actores y casos de uso, priorizar, detallar, prototipar la interfaz, estructurar el modelo
 
 ## Unidad V: Ingeniería de Requerimientos
 
-- **Requisitos funcionales:** QUÉ (especificados por casos de uso)
-- **Requisitos no funcionales:** CÓMO (atributos de calidad)
+- **Funcionales:** QUÉ. **No funcionales:** CÓMO (del producto, organizacionales, externos)
 - **Los 5 procesos:** Elicitación → Análisis → Especificación → Validación → Administración
-- **Elicitación:** Entrevistas, observación, talleres, prototipos, documentación
-- **Especificación:** Documento ERS (completo, consistente, no ambiguo, verificable, trazable, modificable)
-- **Validación:** Revisiones, casos de prueba derivados, prototipos de interfaz
-- **Administración:** Gestionar cambios manteniendo trazabilidad
-- **User Stories** (ágil): "Como X, quiero Y para Z" + criterios de aceptación
-- **Puntos de Historia:** Estimación relativa de tamaño
-- **Caso de Uso:** Camino básico + caminos alternativos
-- **Escenarios:** Instancias concretas de un caso de uso
-- **Relaciones CU:** Inclusión (siempre), Extensión (bajo condición), Generalización (herencia)
-
----
+- **Modelo de casos de uso:** diagrama + descripciones; relaciones include / extend / generalización; **Casos de Uso 2.0**
+- **ERS:** completo, consistente, no ambiguo, verificable, trazable, modificable
+- **Validación:** prototipos de interfaz + **reglas de oro de Schneiderman**
+- **Análisis de consistencia entre modelos**
+- **Ágil:** user stories + criterios de aceptación, puntos de historia, planning poker
 </script>
 
   <script src="questions.js"></script>
+  <script src="questions-unidades.js"></script>
+  <script src="questions-cobertura.js"></script>
+  <script src="questions-temas-nuevos.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

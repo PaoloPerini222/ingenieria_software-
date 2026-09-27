@@ -1,19 +1,43 @@
-temas unidad 1 que me acuerdo 
+algoritmica vs o o 
+objeto clase metodo
+objeto objeto
+clase lo que diferencia al objeto 
+smayores 
+abstraccion encapsulamento modularizacion herencia
+menores
+dokdoa,consistencia, concurrencia
+relaciones entre objetos
+comunicacion entre objetos implica clases
+relaciones entre clases
+asociacion
+11
+1n
+nm
+agregacion 
+herencia
+dependencia 
+realizacion
+diagrama de clases
+modelo dominio
+uml
 
-que es el software
-papel dual del software
-a medida vs generico 
-lo que diferencia al software
--se desarrolla no se manufactura
--se deteriora
--se sigue haciendo a medida
-atributos de calidad esenciales 
--mantenibilidad
--confiabilidad
--eficiencia
--usabilidad
-(compiten entre si)
-software categorias
-software bnm modelo de negocios
-software heredado
-crisis del software
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+asociacion 1 1, 1n, nm
+agregacion punteada flecha hueca
+composicion triangulo abierto
+herencia triangulo lleno
+dependencia triangulo vacio
+realizacion linea discuntib¿ ua flecha

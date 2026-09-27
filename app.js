@@ -221,6 +221,11 @@
         <div class="toc">${u.sections.map(s =>
           `<a class="chip ${done.has(s.id) ? 'done' : ''}" href="#/${u.id}/${s.id}">${esc(s.title.replace(/\s*—\s*/, ' '))}</a>`
         ).join('')}</div>
+        ${/^Unidad/.test(u.label) ? `
+        <div class="unit-practice">
+          <span class="unit-practice-label">Examen de esta unidad</span>
+          <div class="ulevels">${unitLevelButtons(+u.n)}</div>
+        </div>` : ''}
         <div class="unit-actions">
           <button class="ghost-btn" data-act="expand" type="button">Expandir todo</button>
           <button class="ghost-btn" data-act="collapse" type="button">Contraer todo</button>
@@ -292,13 +297,18 @@
 
   // ---------- Ejercicios (multiple choice) ----------
   const BANK = window.EXAM_BANK || {};
+  const UNIT_EXTRA = window.EXAM_UNIT_EXTRA || {};
   const PASS = 70;
+  const UNIT_EXAM_SIZE = 10;
+  const GENERAL_EXAM_SIZE = 20;
   const LEVELS = [
     { id: 'facil', name: 'Fácil', desc: 'Definiciones y conceptos básicos. 4 opciones por pregunta.' },
     { id: 'medio', name: 'Medio', desc: 'Relaciones entre conceptos y comparaciones. 4 opciones por pregunta.' },
     { id: 'dificil', name: 'Difícil', desc: 'Afirmaciones con trampas y conceptos cruzados. 5 opciones por pregunta.' },
     { id: 'extremo', name: 'Extremo', desc: 'Casos prácticos y situaciones para aplicar la teoría. 5 opciones por pregunta.' }
   ];
+  const UNIT_LEVELS = LEVELS.slice(0, 3);
+  const examUnits = units.filter(u => /^Unidad/.test(u.label));
   const roman = ['', 'I', 'II', 'III', 'IV', 'V'];
   const letters = 'abcdefgh';
   let examStats = store.get('isw-exam', {});
@@ -310,11 +320,48 @@
     return a;
   };
 
-  function newAttempt(levelId) {
+  // Preguntas disponibles para el examen de una unidad y nivel.
+  // El nivel difícil de cada unidad suma también las preguntas "extremo" del banco general.
+  function unitPool(n, levelId) {
+    const general = (BANK[levelId] || []).concat(levelId === 'dificil' ? (BANK.extremo || []) : []);
+    return general.concat(UNIT_EXTRA[levelId] || []).filter(q => q.u === n);
+  }
+
+  // Preguntas disponibles para un examen general: todas las del nivel, de todas las unidades.
+  function generalPool(levelId) {
+    return (BANK[levelId] || []).concat(UNIT_EXTRA[levelId] || []);
+  }
+
+  // Un examen se identifica por el nivel ("facil") o por unidad y nivel ("u3-facil").
+  function getExam(id) {
+    const m = /^u(\d)-(facil|medio|dificil)$/.exec(id || '');
+    if (m) {
+      const n = +m[1];
+      const level = LEVELS.find(l => l.id === m[2]);
+      const unit = examUnits.find(u => +u.n === n);
+      const pool = unitPool(n, m[2]);
+      if (!unit || !pool.length) return null;
+      return {
+        id, level, pool, unit: n, size: Math.min(UNIT_EXAM_SIZE, pool.length),
+        eyebrow: `Examen por unidad · ${unit.label} · ${unit.short}`,
+        title: `${unit.label}: nivel ${level.name.toLowerCase()}`
+      };
+    }
+    const level = LEVELS.find(l => l.id === id);
+    if (!level || !BANK[id]) return null;
+    const pool = generalPool(id);
+    return {
+      id, level, pool, unit: null, size: Math.min(GENERAL_EXAM_SIZE, pool.length),
+      eyebrow: `Examen general · Nivel ${level.name}`,
+      title: `Examen nivel ${level.name.toLowerCase()}`
+    };
+  }
+
+  function newAttempt(exam) {
     attempt = {
-      level: levelId,
+      id: exam.id,
       submitted: false,
-      qs: shuffle(BANK[levelId]).map(q => ({
+      qs: shuffle(exam.pool).slice(0, exam.size).map(q => ({
         u: q.u, q: q.q, e: q.e,
         opts: shuffle(q.o.map(([t, c]) => ({ t, c: !!c }))),
         sel: new Set()
@@ -322,8 +369,27 @@
     };
   }
 
+  function statsLine(st) {
+    return st
+      ? `<span>Mejor: <b class="${st.best >= PASS ? 'ok' : 'bad'}">${st.best}%</b></span>
+         <span>Último: <b class="${st.last >= PASS ? 'ok' : 'bad'}">${st.last}%</b></span>
+         <span>Intentos: <b>${st.attempts}</b></span>`
+      : '<span>Todavía sin intentos</span>';
+  }
+
+  // Botones de los 3 niveles de una unidad (se usan en la página de ejercicios y en cada unidad).
+  function unitLevelButtons(n) {
+    return UNIT_LEVELS.map((l, i) => {
+      const st = examStats[`u${n}-${l.id}`];
+      return `<a class="ulevel lv-${i + 1}" href="#/examen/u${n}-${l.id}">
+        <span class="ulevel-name">${l.name}</span>
+        <span class="ulevel-score">${st ? `Mejor: <b class="${st.best >= PASS ? 'ok' : 'bad'}">${st.best}%</b> · ${st.attempts} intento${st.attempts > 1 ? 's' : ''}` : 'Sin intentos'}</span>
+      </a>`;
+    }).join('');
+  }
+
   function renderExamHome() {
-    if (attempt && attempt.submitted) attempt = null; // al elegir un nivel otra vez, arranca un intento nuevo
+    if (attempt && attempt.submitted) attempt = null; // al elegir un examen otra vez, arranca un intento nuevo
     view.innerHTML = `
       <section class="hero">
         <div class="eyebrow">Práctica para el parcial</div>
@@ -332,33 +398,41 @@
           Si ninguna es correcta, no marques nada. Una pregunta cuenta como bien solo si marcás
           <b>exactamente</b> las correctas. Se aprueba con <b>${PASS}%</b>.</p>
       </section>
+      <h2 class="block-title">Exámenes generales (todas las unidades)</h2>
       <div class="level-grid">
         ${LEVELS.map((l, i) => {
           const st = examStats[l.id];
-          const n = (BANK[l.id] || []).length;
           return `<a class="level-card lv-${i + 1}" href="#/examen/${l.id}">
             <div class="level-name">${l.name}</div>
             <p>${l.desc}</p>
-            <div class="level-meta">${n} preguntas</div>
-            <div class="level-stats">
-              ${st ? `<span>Mejor: <b class="${st.best >= PASS ? 'ok' : 'bad'}">${st.best}%</b></span>
-                      <span>Último: <b class="${st.last >= PASS ? 'ok' : 'bad'}">${st.last}%</b></span>
-                      <span>Intentos: <b>${st.attempts}</b></span>`
-                   : '<span>Todavía sin intentos</span>'}
-            </div>
+            <div class="level-meta">${Math.min(GENERAL_EXAM_SIZE, generalPool(l.id).length)} preguntas al azar de ${generalPool(l.id).length}</div>
+            <div class="level-stats">${statsLine(st)}</div>
             <span class="level-go">${st ? 'Volver a rendir' : 'Empezar'} →</span>
           </a>`;
         }).join('')}
+      </div>
+      <h2 class="block-title" style="margin-top:32px">Exámenes por unidad</h2>
+      <p class="exam-rules" style="margin:-4px 0 14px">Solo preguntas de los temas de esa unidad. ${UNIT_EXAM_SIZE} preguntas elegidas al azar en cada intento.</p>
+      <div class="unit-exams">
+        ${examUnits.map(u => `
+          <div class="unit-exam-row" style="--uc:${u.color}">
+            <div class="unit-exam-title">
+              <span class="unit-num">${esc(u.label.toUpperCase())}</span>
+              <strong>${esc(u.title)}</strong>
+            </div>
+            <div class="ulevels">${unitLevelButtons(+u.n)}</div>
+          </div>`).join('')}
       </div>`;
     window.scrollTo(0, 0);
   }
 
-  function renderExam(levelId) {
-    const level = LEVELS.find(l => l.id === levelId);
-    if (!level || !BANK[levelId]) { renderExamHome(); return; }
-    if (!attempt || attempt.level !== levelId) newAttempt(levelId);
+  function renderExam(examId) {
+    const exam = getExam(examId);
+    if (!exam) { renderExamHome(); return; }
+    if (!attempt || attempt.id !== exam.id) newAttempt(exam);
     const a = attempt;
-    const lvIdx = LEVELS.indexOf(level) + 1;
+    const lvIdx = LEVELS.indexOf(exam.level) + 1;
+    const backLabel = exam.unit ? 'Elegir otro examen' : 'Elegir otro nivel';
 
     let result = '';
     if (a.submitted) {
@@ -372,7 +446,7 @@
           </div>
           <div class="result-actions">
             <button class="primary-btn" data-exam="retry" type="button">Repetir examen</button>
-            <a class="ghost-btn" href="#/examen">Elegir otro nivel</a>
+            <a class="ghost-btn" href="#/examen">${backLabel}</a>
           </div>
         </div>`;
     }
@@ -380,15 +454,15 @@
     view.innerHTML = `
       <div class="lv-${lvIdx}">
         <header class="unit-head exam-head">
-          <div class="eyebrow">Ejercicios · Nivel ${level.name}</div>
-          <h1>Examen nivel ${level.name.toLowerCase()}</h1>
+          <div class="eyebrow">${esc(exam.eyebrow)}</div>
+          <h1>${esc(exam.title)}</h1>
           <p class="exam-rules">Puede haber <b>0, 1, 2 o 3</b> opciones correctas por pregunta. Si ninguna es correcta, no marques nada.
             Cada pregunta suma solo si marcás exactamente las correctas.</p>
         </header>
         ${result}
         ${a.qs.map((q, qi) => {
           const nCorrect = q.opts.filter(o => o.c).length;
-          const ok = a.submitted && q.opts.every(o => o.c === q.sel.has(q.opts.indexOf(o)));
+          const ok = a.submitted && q.opts.every((o, oi) => o.c === q.sel.has(oi));
           return `
           <article class="q-card ${a.submitted ? (ok ? 'q-ok' : 'q-bad') : ''}">
             <div class="q-top">
@@ -421,9 +495,10 @@
         <div class="exam-footer">
           ${a.submitted
             ? `<button class="primary-btn" data-exam="retry" type="button">Repetir examen</button>
-               <a class="ghost-btn" href="#/examen">Elegir otro nivel</a>`
+               <a class="ghost-btn" href="#/examen">${backLabel}</a>`
             : `<button class="primary-btn" data-exam="submit" type="button">Entregar examen</button>
                <a class="ghost-btn" href="#/examen">Salir</a>`}
+          ${exam.unit ? `<a class="ghost-btn" href="#/u${exam.unit}">Repasar la unidad</a>` : ''}
         </div>
       </div>`;
   }
@@ -438,10 +513,10 @@
     a.correct = a.qs.filter(q => q.opts.every((o, oi) => o.c === q.sel.has(oi))).length;
     a.score = Math.round(100 * a.correct / a.qs.length);
     a.submitted = true;
-    const prev = examStats[a.level] || { best: 0, attempts: 0 };
-    examStats[a.level] = { best: Math.max(prev.best, a.score), last: a.score, attempts: prev.attempts + 1 };
+    const prev = examStats[a.id] || { best: 0, attempts: 0 };
+    examStats[a.id] = { best: Math.max(prev.best, a.score), last: a.score, attempts: prev.attempts + 1 };
     store.set('isw-exam', examStats);
-    renderExam(a.level);
+    renderExam(a.id);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -456,8 +531,9 @@
     if (!btn || !attempt) return;
     if (btn.dataset.exam === 'submit') submitExam();
     if (btn.dataset.exam === 'retry') {
-      newAttempt(attempt.level);
-      renderExam(attempt.level);
+      const exam = getExam(attempt.id);
+      newAttempt(exam);
+      renderExam(exam.id);
       window.scrollTo(0, 0);
     }
   });
