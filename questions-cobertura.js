@@ -34,7 +34,7 @@
       { u: 3, t: '3.15', q: '¿En qué se apoya Scrum?',
         o: [['En el empirismo', 1], ['En el pensamiento Lean', 1], ['En la planificación rígida a largo plazo', 0], ['En la jerarquía dentro del equipo', 0]],
         e: 'Empirismo (decidir basado en lo observado) y pensamiento Lean (reducir desperdicio).' },
-      { u: 3, t: '3.8', q: 'Sobre el origen de Lean, ¿qué es correcto?',
+      { u: 3, t: '3.16', q: 'Sobre el origen de Lean, ¿qué es correcto?',
         o: [['Aplica el “pensamiento esbelto” de Toyota al software', 1], ['Lo adaptaron al software Mary y Tom Poppendieck', 1], ['Surgió en la conferencia de la OTAN de 1968', 0], ['Es una variante del modelo en cascada', 0]],
         e: 'Lean viene de la manufactura de Toyota, adaptado por los Poppendieck.' },
       { u: 4, t: '4.5', q: 'En el PU, una ACTIVIDAD es...',

@@ -219,7 +219,7 @@ h2.block-title { font-size: 18px; margin: 0 0 12px; }
 .section.is-done .section-head h2::after { content: " ✓"; color: var(--ok); }
 
 .section-body { padding: 0 20px 20px; border-top: 1px solid var(--border); }
-.section-body h3 { font-size: 17px; margin: 24px 0 8px; color: var(--uc); }
+.section-body h3 { font-size: 17px; margin: 24px 0 8px; color: var(--accent); }
 .section-body h4 { font-size: 15.5px; margin: 18px 0 6px; }
 .section-body p { margin: 8px 0; }
 .section-body ul, .section-body ol { margin: 6px 0 10px; padding-left: 24px; }
